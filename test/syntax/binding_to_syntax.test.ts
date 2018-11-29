@@ -6,9 +6,9 @@ import { BindingScopeEnum, BindingTypeEnum } from "../../src/constants/literal_t
 import { interfaces } from "../../src/interfaces/interfaces";
 import { BindingToSyntax } from "../../src/syntax/binding_to_syntax";
 
-describe("BindingToSyntax", () => {
+describe("BindingToSyntax", async () => {
 
-    it("Should set its own properties correctly", () => {
+    it("Should set its own properties correctly", async () => {
 
         interface Ninja {}
         const ninjaIdentifier = "Ninja";
@@ -23,7 +23,7 @@ describe("BindingToSyntax", () => {
 
     });
 
-    it("Should be able to configure the type of a binding", () => {
+    it("Should be able to configure the type of a binding", async () => {
 
         interface Ninja {}
 
@@ -90,7 +90,7 @@ describe("BindingToSyntax", () => {
 
     });
 
-    it("Should prevent invalid function bindings", () => {
+    it("Should prevent invalid function bindings", async () => {
 
         interface Ninja {}
 

@@ -1,9 +1,9 @@
 import { expect } from "chai";
 import { Container, inject, injectable, optional } from "../../src/inversify";
 
-describe("@optional", () => {
+describe("@optional", async () => {
 
-  it("Should allow to flag dependencies as optional", () => {
+  it("Should allow to flag dependencies as optional", async () => {
 
       @injectable()
       class Katana {
@@ -55,7 +55,7 @@ describe("@optional", () => {
 
   });
 
-  it("Should allow to set a default value for dependencies flagged as optional", () => {
+  it("Should allow to set a default value for dependencies flagged as optional", async () => {
 
       @injectable()
       class Katana {

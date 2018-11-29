@@ -5,9 +5,9 @@ import { targetName } from "../../src/annotation/target_name";
 import * as METADATA_KEY from "../../src/constants/metadata_keys";
 import * as Stubs from "../utils/stubs";
 
-describe("@targetName", () => {
+describe("@targetName", async () => {
 
-    it("Should generate metadata if declared parameter names", () => {
+    it("Should generate metadata if declared parameter names", async () => {
 
         @injectable()
         class Warrior {
@@ -37,7 +37,7 @@ describe("@targetName", () => {
 
     });
 
-    it("Should be usable in VanillaJS applications", () => {
+    it("Should be usable in VanillaJS applications", async () => {
 
         interface Katana {}
         interface Shuriken {}

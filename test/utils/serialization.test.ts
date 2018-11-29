@@ -3,9 +3,9 @@ import { TargetTypeEnum } from "../../src/constants/literal_types";
 import { Target } from "../../src/planning/target";
 import { getFunctionName, listMetadataForTarget } from "../../src/utils/serialization";
 
-describe("Serialization", () => {
+describe("Serialization", async () => {
 
-    it("Should return a good function name", () => {
+    it("Should return a good function name", async () => {
 
         function testFunction() {
             return false;
@@ -15,7 +15,7 @@ describe("Serialization", () => {
 
     });
 
-    it("Should return a good function name by using the regex", () => {
+    it("Should return a good function name by using the regex", async () => {
 
         const testFunction: any = { name: null };
         testFunction.toString = () =>
@@ -25,7 +25,7 @@ describe("Serialization", () => {
 
     });
 
-    it("Should not fail when target is not named or tagged", () => {
+    it("Should not fail when target is not named or tagged", async () => {
         const serviceIdentifier = "SomeTypeId";
         const target = new Target(TargetTypeEnum.Variable, "", serviceIdentifier);
         const list = listMetadataForTarget(serviceIdentifier, target);

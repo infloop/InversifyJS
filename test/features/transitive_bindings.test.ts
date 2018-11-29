@@ -1,9 +1,9 @@
 import { expect } from "chai";
 import { Container, injectable, multiBindToService } from "../../src/inversify";
 
-describe("Transitive bindings", () => {
+describe("Transitive bindings", async () => {
 
-    it("Should be able to bind to a service", () => {
+    it("Should be able to bind to a service", async () => {
 
         @injectable()
         class MySqlDatabaseTransactionLog {
@@ -44,7 +44,7 @@ describe("Transitive bindings", () => {
 
     });
 
-    it("Should be able to bulk bind to a service", () => {
+    it("Should be able to bulk bind to a service", async () => {
 
         @injectable()
         class MySqlDatabaseTransactionLog {

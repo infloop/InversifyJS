@@ -2,9 +2,9 @@ import { expect } from "chai";
 import * as ERROR_MSGS from "../../src/constants/error_msgs";
 import { Container, inject, injectable } from "../../src/inversify";
 
-describe("Issue 543", () => {
+describe("Issue 543", async () => {
 
-    it("Should throw correct circular dependency path", () => {
+    it("Should throw correct circular dependency path", async () => {
 
         const TYPE = {
             Child: Symbol.for("Child"),

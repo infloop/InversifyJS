@@ -10,9 +10,9 @@ import {
     typeConstraint, unmanaged
 } from "../src/inversify";
 
-describe("InversifyJS", () => {
+describe("InversifyJS", async () => {
 
-    it("Should be able to resolve and inject dependencies", () => {
+    it("Should be able to resolve and inject dependencies", async () => {
 
         interface Ninja {
             fight(): string;
@@ -72,7 +72,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should be able to resolve and inject dependencies in VanillaJS", () => {
+    it("Should be able to resolve and inject dependencies in VanillaJS", async () => {
 
         const TYPES = {
             Katana: "Katana",
@@ -123,7 +123,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should be able to use classes as runtime identifiers", () => {
+    it("Should be able to use classes as runtime identifiers", async () => {
 
         @injectable()
         class Katana {
@@ -167,7 +167,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should be able to use Symbols as runtime identifiers", () => {
+    it("Should be able to use Symbols as runtime identifiers", async () => {
 
         interface Ninja {
             fight(): string;
@@ -233,7 +233,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should be able to wrap Symbols with LazyServiceIdentifer", () => {
+    it("Should be able to wrap Symbols with LazyServiceIdentifer", async () => {
 
         interface Ninja {
             fight(): string;
@@ -299,7 +299,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should support Container modules", () => {
+    it("Should support Container modules", async () => {
 
         interface Ninja {
             fight(): string;
@@ -380,7 +380,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should support control over the scope of the dependencies", () => {
+    it("Should support control over the scope of the dependencies", async () => {
 
         interface Ninja {
             fight(): string;
@@ -455,7 +455,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should support the injection of classes to itself", () => {
+    it("Should support the injection of classes to itself", async () => {
 
         const heroName = "superman";
 
@@ -475,7 +475,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should support the injection of constant values", () => {
+    it("Should support the injection of constant values", async () => {
 
         interface Warrior {
             name: string;
@@ -503,7 +503,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should support the injection of dynamic values", () => {
+    it("Should support the injection of dynamic values", async () => {
 
         interface UseDate {
             doSomething(): Date;
@@ -537,7 +537,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should support the injection of Functions", () => {
+    it("Should support the injection of Functions", async () => {
 
         const ninjaId = "Ninja";
         const longDistanceWeaponId = "LongDistanceWeapon";
@@ -613,7 +613,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should support the injection of class constructors", () => {
+    it("Should support the injection of class constructors", async () => {
 
         interface Ninja {
             fight(): string;
@@ -673,7 +673,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should support the injection of user defined factories", () => {
+    it("Should support the injection of user defined factories", async () => {
 
         interface Ninja {
             fight(): string;
@@ -736,7 +736,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should support the injection of user defined factories with args", () => {
+    it("Should support the injection of user defined factories with args", async () => {
 
         interface Ninja {
             fight(): string;
@@ -795,7 +795,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should support the injection of user defined factories with partial application", () => {
+    it("Should support the injection of user defined factories with partial application", async () => {
 
         interface InjectorPump { }
 
@@ -881,7 +881,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should support the injection of auto factories", () => {
+    it("Should support the injection of auto factories", async () => {
 
         interface Ninja {
             fight(): string;
@@ -1000,9 +1000,9 @@ describe("InversifyJS", () => {
 
     });
 
-    describe("Injection of multiple values with string as keys", () => {
+    describe("Injection of multiple values with string as keys", async () => {
 
-        it("Should support the injection of multiple values", () => {
+        it("Should support the injection of multiple values", async () => {
 
             const warriorId = "Warrior";
             const weaponId = "Weapon";
@@ -1055,7 +1055,7 @@ describe("InversifyJS", () => {
 
         });
 
-        it("Should support the injection of multiple values with nested inject", () => {
+        it("Should support the injection of multiple values with nested inject", async () => {
 
             interface Ninja {
                 fight(): string;
@@ -1137,7 +1137,7 @@ describe("InversifyJS", () => {
 
         });
 
-        it("Should support the injection of multiple values with nested multiInject", () => {
+        it("Should support the injection of multiple values with nested multiInject", async () => {
 
             const warriorId = "Warrior";
             const swordId = "Sword";
@@ -1246,8 +1246,8 @@ describe("InversifyJS", () => {
         });
     });
 
-    describe("Injection of multiple values with class as keys", () => {
-        it("Should support the injection of multiple values when using classes as keys", () => {
+    describe("Injection of multiple values with class as keys", async () => {
+        it("Should support the injection of multiple values when using classes as keys", async () => {
 
             @injectable()
             class Weapon {
@@ -1299,7 +1299,7 @@ describe("InversifyJS", () => {
 
         });
 
-        it("Should support the injection of multiple values with nested inject", () => {
+        it("Should support the injection of multiple values with nested inject", async () => {
 
             @injectable()
             class Katana {
@@ -1363,7 +1363,7 @@ describe("InversifyJS", () => {
 
         });
 
-        it("Should support the injection of multiple values with nested multiInject", () => {
+        it("Should support the injection of multiple values with nested multiInject", async () => {
 
             @injectable()
             class Katana {
@@ -1444,8 +1444,8 @@ describe("InversifyJS", () => {
 
     });
 
-    describe("Injection of multiple values with Symbol as keys", () => {
-        it("Should support the injection of multiple values when using Symbols as keys", () => {
+    describe("Injection of multiple values with Symbol as keys", async () => {
+        it("Should support the injection of multiple values when using Symbols as keys", async () => {
 
             const TYPES = {
                 Warrior: Symbol.for("Warrior"),
@@ -1500,7 +1500,7 @@ describe("InversifyJS", () => {
 
         });
 
-        it("Should support the injection of multiple values with nested inject", () => {
+        it("Should support the injection of multiple values with nested inject", async () => {
 
             const TYPES = {
                 Katana: Symbol.for("Katana"),
@@ -1589,7 +1589,7 @@ describe("InversifyJS", () => {
 
         });
 
-        it("Should support the injection of multiple values with nested multiInject", () => {
+        it("Should support the injection of multiple values with nested multiInject", async () => {
 
             const TYPES = {
                 Katana: Symbol.for("Katana"),
@@ -1699,7 +1699,7 @@ describe("InversifyJS", () => {
         });
     });
 
-    it("Should support tagged bindings", () => {
+    it("Should support tagged bindings", async () => {
 
         enum Tag { CanThrow }
 
@@ -1740,7 +1740,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should support custom tag decorators", () => {
+    it("Should support custom tag decorators", async () => {
 
         interface Weapon { }
 
@@ -1782,7 +1782,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should support named bindings", () => {
+    it("Should support named bindings", async () => {
 
         const name: symbol = Symbol.for("Weak");
 
@@ -1823,7 +1823,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should support contextual bindings and targetName annotation", () => {
+    it("Should support contextual bindings and targetName annotation", async () => {
 
         interface Weapon { }
 
@@ -1866,7 +1866,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should be able to resolve a ambiguous binding by providing a named tag", () => {
+    it("Should be able to resolve a ambiguous binding by providing a named tag", async () => {
 
         interface Weapon {
             name: string;
@@ -1900,7 +1900,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should be able to resolve a ambiguous binding by providing a custom tag", () => {
+    it("Should be able to resolve a ambiguous binding by providing a custom tag", async () => {
 
         interface Weapon {
             name: string;
@@ -1934,7 +1934,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should be able to inject into a super constructor", () => {
+    it("Should be able to inject into a super constructor", async () => {
 
         const SYMBOLS = {
             Samurai: Symbol.for("Samurai"),
@@ -2002,7 +2002,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should allow to flag arguments as unmanaged", () => {
+    it("Should allow to flag arguments as unmanaged", async () => {
 
         const container = new Container();
 
@@ -2084,7 +2084,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should support a whenInjectedInto contextual bindings constraint", () => {
+    it("Should support a whenInjectedInto contextual bindings constraint", async () => {
 
         const TYPES = {
             Ninja: "Ninja",
@@ -2156,7 +2156,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should support a whenParentNamed contextual bindings constraint", () => {
+    it("Should support a whenParentNamed contextual bindings constraint", async () => {
 
         const TYPES = {
             Material: "Material",
@@ -2239,7 +2239,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should support a whenParentTagged contextual bindings constraint", () => {
+    it("Should support a whenParentTagged contextual bindings constraint", async () => {
 
         const TYPES = {
             Material: "Material",
@@ -2322,7 +2322,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should support a whenAnyAncestorIs and whenNoAncestorIs contextual bindings constraint", () => {
+    it("Should support a whenAnyAncestorIs and whenNoAncestorIs contextual bindings constraint", async () => {
 
         const TYPES = {
             Material: "Material",
@@ -2420,7 +2420,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should support a whenAnyAncestorNamed and whenNoAncestorNamed contextual bindings constraint", () => {
+    it("Should support a whenAnyAncestorNamed and whenNoAncestorNamed contextual bindings constraint", async () => {
 
         const TYPES = {
             Material: "Material",
@@ -2518,7 +2518,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should support a whenAnyAncestorTagged and whenNoAncestorTaggedcontextual bindings constraint", () => {
+    it("Should support a whenAnyAncestorTagged and whenNoAncestorTaggedcontextual bindings constraint", async () => {
 
         const TYPES = {
             Material: "Material",
@@ -2616,7 +2616,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should support a whenAnyAncestorMatches and whenNoAncestorMatches contextual bindings constraint", () => {
+    it("Should support a whenAnyAncestorMatches and whenNoAncestorMatches contextual bindings constraint", async () => {
 
         const TYPES = {
             Material: "Material",
@@ -2718,7 +2718,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should be able to inject a regular derived class", () => {
+    it("Should be able to inject a regular derived class", async () => {
 
         const SYMBOLS = {
             RANK: Symbol.for("RANK"),
@@ -2755,7 +2755,7 @@ describe("InversifyJS", () => {
 
     });
 
-    it("Should be able to identify missing @injectable in a base class", () => {
+    it("Should be able to identify missing @injectable in a base class", async () => {
 
         const SYMBOLS = {
             SamuraiMaster: Symbol.for("SamuraiMaster")

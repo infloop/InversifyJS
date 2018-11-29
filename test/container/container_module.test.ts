@@ -3,16 +3,16 @@ import { Container } from "../../src/container/container";
 import { AsyncContainerModule, ContainerModule } from "../../src/container/container_module";
 import { interfaces } from "../../src/interfaces/interfaces";
 
-describe("ContainerModule", () => {
+describe("ContainerModule", async () => {
 
-  it("Should be able to set the registry of a container module", () => {
+  it("Should be able to set the registry of a container module", async () => {
       const registry = (bind: interfaces.Bind) => { /* do nothing */ };
       const warriors = new ContainerModule(registry);
       expect(warriors.id).to.be.a("number");
       expect(warriors.registry).eql(registry);
   });
 
-  it("Should be able to remove some bindings from within a container module", () => {
+  it("Should be able to remove some bindings from within a container module", async () => {
 
       const container = new Container();
       container.bind<string>("A").toConstantValue("1");
@@ -34,7 +34,7 @@ describe("ContainerModule", () => {
 
   });
 
-  it("Should be able to check for existence of bindings within a container module", () => {
+  it("Should be able to check for existence of bindings within a container module", async () => {
 
     const container = new Container();
     container.bind<string>("A").toConstantValue("1");
@@ -51,7 +51,7 @@ describe("ContainerModule", () => {
 
   });
 
-  it("Should be able to override a binding using rebind within a container module", () => {
+  it("Should be able to override a binding using rebind within a container module", async () => {
 
     const TYPES = {
         someType: "someType"

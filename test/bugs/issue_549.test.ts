@@ -1,9 +1,9 @@
 import * as ERROR_MSGS from "../../src/constants/error_msgs";
 import { Container, inject, injectable } from "../../src/inversify";
 
-describe("Issue 549", () => {
+describe("Issue 549", async () => {
 
-    it("Should throw if circular dependencies found with dynamics", () => {
+    it("Should throw if circular dependencies found with dynamics", async () => {
 
         const TYPE = {
             ADynamicValue: Symbol.for("ADynamicValue"),

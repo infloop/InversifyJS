@@ -5,7 +5,7 @@ import * as ERROR_MSGS from "../../src/constants/error_msgs";
 import { Container } from "../../src/container/container";
 import { interfaces } from "../../src/interfaces/interfaces";
 
-describe("Middleware", () => {
+describe("Middleware", async () => {
 
     let sandbox: sinon.SinonSandbox;
 
@@ -17,7 +17,7 @@ describe("Middleware", () => {
         sandbox.restore();
     });
 
-    it("Should be able to use middleware as Container configuration", () => {
+    it("Should be able to use middleware as Container configuration", async () => {
 
         const container = new Container();
 
@@ -36,7 +36,7 @@ describe("Middleware", () => {
 
     });
 
-    it("Should support middleware", () => {
+    it("Should support middleware", async () => {
 
         interface Ninja {}
 
@@ -75,7 +75,7 @@ describe("Middleware", () => {
 
     });
 
-    it("Should allow applyMiddleware at multiple points in time", () => {
+    it("Should allow applyMiddleware at multiple points in time", async () => {
 
         interface Ninja {}
 
@@ -113,7 +113,7 @@ describe("Middleware", () => {
 
     });
 
-    it("Should use middleware", () => {
+    it("Should use middleware", async () => {
 
         interface Ninja {}
 
@@ -150,7 +150,7 @@ describe("Middleware", () => {
 
     });
 
-    it("Should be able to use middleware to catch errors during pre-planning phase", () => {
+    it("Should be able to use middleware to catch errors during pre-planning phase", async () => {
 
         interface Ninja {}
 
@@ -180,7 +180,7 @@ describe("Middleware", () => {
 
     });
 
-    it("Should be able to use middleware to catch errors during planning phase", () => {
+    it("Should be able to use middleware to catch errors during planning phase", async () => {
 
         interface Warrior {}
 
@@ -215,7 +215,7 @@ describe("Middleware", () => {
 
     });
 
-    it("Should be able to use middleware to catch errors during resolution phase", () => {
+    it("Should be able to use middleware to catch errors during resolution phase", async () => {
 
         interface Warrior {}
 
@@ -243,7 +243,7 @@ describe("Middleware", () => {
 
     });
 
-    it("Should help users to identify problems with middleware", () => {
+    it("Should help users to identify problems with middleware", async () => {
 
         const container = new Container();
 
@@ -263,7 +263,7 @@ describe("Middleware", () => {
 
     });
 
-    it("Should allow users to intercept a resolution context", () => {
+    it("Should allow users to intercept a resolution context", async () => {
 
         interface Ninja {}
 

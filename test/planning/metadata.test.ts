@@ -1,9 +1,9 @@
 import { expect } from "chai";
 import { Metadata } from "../../src/planning/metadata";
 
-describe("Metadata", () => {
+describe("Metadata", async () => {
 
-  it("Should set its own properties correctly", () => {
+  it("Should set its own properties correctly", async () => {
     const m = new Metadata("power", 5);
     expect(m.key).to.equals("power");
     expect(m.value).to.equals(5);

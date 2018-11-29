@@ -12,7 +12,7 @@ import { interfaces } from "../../src/interfaces/interfaces";
 import { MetadataReader } from "../../src/planning/metadata_reader";
 import { plan } from "../../src/planning/planner";
 
-describe("Planner", () => {
+describe("Planner", async () => {
 
     let sandbox: sinon.SinonSandbox;
 
@@ -24,7 +24,7 @@ describe("Planner", () => {
         sandbox.restore();
     });
 
-    it("Should be able to create a basic plan", () => {
+    it("Should be able to create a basic plan", async () => {
 
         interface KatanaBlade { }
 
@@ -118,7 +118,7 @@ describe("Planner", () => {
 
     });
 
-    it("Should throw when circular dependencies found", () => {
+    it("Should throw when circular dependencies found", async () => {
 
         interface A { }
         interface B { }
@@ -182,7 +182,7 @@ describe("Planner", () => {
 
     });
 
-    it("Should only plan sub-dependencies when binding type is BindingType.Instance", () => {
+    it("Should only plan sub-dependencies when binding type is BindingType.Instance", async () => {
 
         interface KatanaBlade { }
 
@@ -257,7 +257,7 @@ describe("Planner", () => {
 
     });
 
-    it("Should generate plans with multi-injections", () => {
+    it("Should generate plans with multi-injections", async () => {
 
         interface Weapon { }
 
@@ -326,7 +326,7 @@ describe("Planner", () => {
 
     });
 
-    it("Should throw when no matching bindings are found", () => {
+    it("Should throw when no matching bindings are found", async () => {
 
         interface Katana { }
         @injectable()
@@ -366,7 +366,7 @@ describe("Planner", () => {
 
     });
 
-    it("Should throw when an ambiguous match is found", () => {
+    it("Should throw when an ambiguous match is found", async () => {
 
         interface Katana { }
 
@@ -412,7 +412,7 @@ describe("Planner", () => {
 
     });
 
-    it("Should apply constrains when an ambiguous match is found", () => {
+    it("Should apply constrains when an ambiguous match is found", async () => {
 
         interface Weapon { }
 
@@ -465,7 +465,7 @@ describe("Planner", () => {
 
     });
 
-    it("Should be throw when a class has a missing @injectable annotation", () => {
+    it("Should be throw when a class has a missing @injectable annotation", async () => {
 
         interface Weapon { }
 
@@ -482,7 +482,7 @@ describe("Planner", () => {
 
     });
 
-    it("Should ignore checking base classes for @injectable when skipBaseClassChecks is set on the container", () => {
+    it("Should ignore checking base classes for @injectable when skipBaseClassChecks is set on the container", async () => {
         class Test { }
 
         @injectable()
@@ -493,7 +493,7 @@ describe("Planner", () => {
         container.get(Test2);
     });
 
-    it("Should ignore checking base classes for @injectable on resolve when skipBaseClassChecks is set", () => {
+    it("Should ignore checking base classes for @injectable on resolve when skipBaseClassChecks is set", async () => {
         class Test { }
 
         @injectable()
@@ -503,7 +503,7 @@ describe("Planner", () => {
         container.resolve(Test2);
     });
 
-    it("Should throw when an class has a missing @inject annotation", () => {
+    it("Should throw when an class has a missing @inject annotation", async () => {
 
         interface Sword { }
 
@@ -536,7 +536,7 @@ describe("Planner", () => {
 
     });
 
-    it("Should throw when a function has a missing @injectable annotation", () => {
+    it("Should throw when a function has a missing @injectable annotation", async () => {
 
         interface Katana { }
 

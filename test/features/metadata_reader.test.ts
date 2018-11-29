@@ -4,7 +4,7 @@ import { interfaces } from "../../src/interfaces/interfaces";
 import { Container, inject, injectable, MetadataReader } from "../../src/inversify";
 import { Metadata } from "../../src/planning/metadata";
 
-describe("Custom Metadata Reader", () => {
+describe("Custom Metadata Reader", async () => {
 
     interface FunctionWithMetadata extends Function {
         constructorInjections: interfaces.ServiceIdentifier<any>[];
@@ -80,7 +80,7 @@ describe("Custom Metadata Reader", () => {
 
     }
 
-    it("Should be able to use custom constructor injection metadata", () => {
+    it("Should be able to use custom constructor injection metadata", async () => {
 
         interface Ninja {
             fight(): string;
@@ -146,7 +146,7 @@ describe("Custom Metadata Reader", () => {
 
     });
 
-    it("Should be able to use custom prop injection metadata", () => {
+    it("Should be able to use custom prop injection metadata", async () => {
 
         interface Ninja {
             fight(): string;
@@ -210,7 +210,7 @@ describe("Custom Metadata Reader", () => {
 
     });
 
-    it("Should be able to use extend the default metadata reader", () => {
+    it("Should be able to use extend the default metadata reader", async () => {
 
         const constructorMetadataLog: interfaces.ConstructorMetadata[] = [];
         const propertyMetadataLog: interfaces.MetadataMap[] = [];

@@ -1,9 +1,9 @@
 import { expect } from "chai";
 import { Container, injectable } from "../../src/inversify";
 
-describe("Issue 633", () => {
+describe("Issue 633", async () => {
 
-    it("Should expose metadata through context", () => {
+    it("Should expose metadata through context", async () => {
 
         @injectable()
         class Logger {

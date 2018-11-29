@@ -6,7 +6,7 @@ import { BindingScopeEnum } from "../../src/constants/literal_types";
 import { interfaces } from "../../src/interfaces/interfaces";
 import { BindingInWhenOnSyntax } from "../../src/syntax/binding_in_when_on_syntax";
 
-describe("BindingInWhenOnSyntax", () => {
+describe("BindingInWhenOnSyntax", async () => {
 
     let sandbox: sinon.SinonSandbox;
 
@@ -18,7 +18,7 @@ describe("BindingInWhenOnSyntax", () => {
         sandbox.restore();
     });
 
-    it("Should set its own properties correctly", () => {
+    it("Should set its own properties correctly", async () => {
 
         interface Ninja {}
         const ninjaIdentifier = "Ninja";
@@ -33,7 +33,7 @@ describe("BindingInWhenOnSyntax", () => {
 
     });
 
-    it("Should provide access to BindingInSyntax methods", () => {
+    it("Should provide access to BindingInSyntax methods", async () => {
 
         interface Ninja {}
         const ninjaIdentifier = "Ninja";
@@ -58,7 +58,7 @@ describe("BindingInWhenOnSyntax", () => {
 
     });
 
-    it("Should provide access to BindingWhenSyntax methods", () => {
+    it("Should provide access to BindingWhenSyntax methods", async () => {
 
         interface Army {}
 
@@ -146,7 +146,7 @@ describe("BindingInWhenOnSyntax", () => {
 
     });
 
-    it("Should provide access to BindingOnSyntax methods", () => {
+    it("Should provide access to BindingOnSyntax methods", async () => {
 
         interface Ninja {}
         const ninjaIdentifier = "Ninja";

@@ -17,7 +17,7 @@ import { getBindingDictionary, plan } from "../../src/planning/planner";
 import { resolveInstance } from "../../src/resolution/instantiation";
 import { resolve } from "../../src/resolution/resolver";
 
-describe("Resolve", () => {
+describe("Resolve", async () => {
 
   let sandbox: sinon.SinonSandbox;
 
@@ -29,7 +29,7 @@ describe("Resolve", () => {
     sandbox.restore();
   });
 
-  it("Should be able to resolve BindingType.Instance bindings", () => {
+  it("Should be able to resolve BindingType.Instance bindings", async () => {
 
       const ninjaId = "Ninja";
       const shurikenId = "Shuriken";
@@ -106,7 +106,7 @@ describe("Resolve", () => {
 
   });
 
-  it("Should store singleton type bindings in cache", () => {
+  it("Should store singleton type bindings in cache", async () => {
 
       const ninjaId = "Ninja";
       const shurikenId = "Shuriken";
@@ -186,7 +186,7 @@ describe("Resolve", () => {
 
   });
 
-  it("Should throw when an invalid BindingType is detected", () => {
+  it("Should throw when an invalid BindingType is detected", async () => {
 
       interface Katana {}
 
@@ -233,7 +233,7 @@ describe("Resolve", () => {
 
   });
 
-  it("Should be able to resolve BindingType.ConstantValue bindings", () => {
+  it("Should be able to resolve BindingType.ConstantValue bindings", async () => {
 
       interface KatanaBlade {}
 
@@ -304,7 +304,7 @@ describe("Resolve", () => {
 
   });
 
-  it("Should be able to resolve BindingType.DynamicValue bindings", () => {
+  it("Should be able to resolve BindingType.DynamicValue bindings", async () => {
 
     interface UseDate {
         doSomething(): Date;
@@ -338,7 +338,7 @@ describe("Resolve", () => {
 
   });
 
-  it("Should be able to resolve BindingType.Constructor bindings", () => {
+  it("Should be able to resolve BindingType.Constructor bindings", async () => {
 
       const ninjaId = "Ninja";
       const shurikenId = "Shuriken";
@@ -415,7 +415,7 @@ describe("Resolve", () => {
 
   });
 
-  it("Should be able to resolve BindingType.Factory bindings", () => {
+  it("Should be able to resolve BindingType.Factory bindings", async () => {
 
       const ninjaId = "Ninja";
       const shurikenId = "Shuriken";
@@ -500,7 +500,7 @@ describe("Resolve", () => {
 
   });
 
-  it("Should be able to resolve bindings with auto factory", () => {
+  it("Should be able to resolve bindings with auto factory", async () => {
 
       const ninjaId = "Ninja";
       const shurikenId = "Shuriken";
@@ -676,7 +676,7 @@ describe("Resolve", () => {
 
   });
 
-  it("Should be able to resolve plans with constraints on tagged targets", () => {
+  it("Should be able to resolve plans with constraints on tagged targets", async () => {
 
       interface Weapon {}
 
@@ -722,7 +722,7 @@ describe("Resolve", () => {
 
   });
 
-  it("Should be able to resolve plans with constraints on named targets", () => {
+  it("Should be able to resolve plans with constraints on named targets", async () => {
 
       interface Weapon {}
 
@@ -768,7 +768,7 @@ describe("Resolve", () => {
 
   });
 
-  it("Should be able to resolve plans with custom contextual constraints", () => {
+  it("Should be able to resolve plans with custom contextual constraints", async () => {
 
       interface Weapon {}
 
@@ -817,7 +817,7 @@ describe("Resolve", () => {
       expect(ninja.shuriken instanceof Shuriken).eql(true);
   });
 
-  it("Should be able to resolve plans with multi-injections", () => {
+  it("Should be able to resolve plans with multi-injections", async () => {
 
       interface Weapon {
           name: string;
@@ -880,7 +880,7 @@ describe("Resolve", () => {
 
   });
 
-  it("Should be able to resolve plans with activation handlers", () => {
+  it("Should be able to resolve plans with activation handlers", async () => {
 
         interface Sword {
             use(): void;
@@ -941,7 +941,7 @@ describe("Resolve", () => {
 
   });
 
-  it("Should be able to resolve BindingType.Function bindings", () => {
+  it("Should be able to resolve BindingType.Function bindings", async () => {
 
       const ninjaId = "Ninja";
       const shurikenId = "Shuriken";
@@ -1016,7 +1016,7 @@ describe("Resolve", () => {
 
     });
 
-  it("Should run the @PostConstruct method", () => {
+  it("Should run the @PostConstruct method", async () => {
 
         interface Sword {
             use(): string;
@@ -1063,7 +1063,7 @@ describe("Resolve", () => {
 
     });
 
-  it("Should throw an error if the @postConstruct method throws an error", () => {
+  it("Should throw an error if the @postConstruct method throws an error", async () => {
 
         @injectable()
         class Katana {
@@ -1078,7 +1078,7 @@ describe("Resolve", () => {
             .to.throw("@postConstruct error in class Katana: Original Message");
     });
 
-  it("Should run the @PostConstruct method of parent class", () => {
+  it("Should run the @PostConstruct method of parent class", async () => {
 
         interface Weapon {
             use(): string;
@@ -1130,7 +1130,7 @@ describe("Resolve", () => {
 
     });
 
-  it("Should run the @PostConstruct method once in the singleton scope", () => {
+  it("Should run the @PostConstruct method once in the singleton scope", async () => {
         let timesCalled = 0;
         @injectable()
         class Katana {

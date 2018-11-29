@@ -1,9 +1,9 @@
 import { expect } from "chai";
 import { Container, injectable } from "../../src/inversify";
 
-describe("Container.prototype.resolve", () => {
+describe("Container.prototype.resolve", async () => {
 
-    it("Should be able to resolve a class that has not binded", () => {
+    it("Should be able to resolve a class that has not binded", async () => {
 
         @injectable()
         class Katana {

@@ -6,7 +6,7 @@ import { Context } from "../../src/planning/context";
 import { Request } from "../../src/planning/request";
 import { Target } from "../../src/planning/target";
 
-describe("Request", () => {
+describe("Request", async () => {
 
   const identifiers = {
       Katana: "Katana",
@@ -16,7 +16,7 @@ describe("Request", () => {
       Shuriken: "Shuriken",
   };
 
-  it("Should set its own properties correctly", () => {
+  it("Should set its own properties correctly", async () => {
 
       const container = new Container();
       const context = new Context(container);
@@ -46,7 +46,7 @@ describe("Request", () => {
 
   });
 
-  it("Should be able to add a child request", () => {
+  it("Should be able to add a child request", async () => {
 
       const container = new Container();
       const context = new Context(container);

@@ -3,9 +3,9 @@ import { Binding } from "../../src/bindings/binding";
 import { BindingScopeEnum } from "../../src/constants/literal_types";
 import { BindingInSyntax } from "../../src/syntax/binding_in_syntax";
 
-describe("BindingInSyntax", () => {
+describe("BindingInSyntax", async () => {
 
-    it("Should set its own properties correctly", () => {
+    it("Should set its own properties correctly", async () => {
 
         interface Ninja {}
         const ninjaIdentifier = "Ninja";
@@ -20,7 +20,7 @@ describe("BindingInSyntax", () => {
 
     });
 
-    it("Should be able to configure the scope of a binding", () => {
+    it("Should be able to configure the scope of a binding", async () => {
 
         interface Ninja {}
         const ninjaIdentifier = "Ninja";

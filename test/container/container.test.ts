@@ -11,7 +11,7 @@ import { getServiceIdentifierAsString } from "../../src/utils/serialization";
 
 type Dictionary = Map<interfaces.ServiceIdentifier<any>, interfaces.Binding<any>[]>;
 
-describe("Container", () => {
+describe("Container", async () => {
 
     let sandbox: sinon.SinonSandbox;
 
@@ -23,7 +23,7 @@ describe("Container", () => {
         sandbox.restore();
     });
 
-    it("Should be able to use modules as configuration", () => {
+    it("Should be able to use modules as configuration", async () => {
 
       interface Ninja {}
       interface Katana {}
@@ -76,7 +76,7 @@ describe("Container", () => {
 
   });
 
-    it("Should be able to store bindings", () => {
+    it("Should be able to store bindings", async () => {
 
       interface Ninja {}
 
@@ -93,7 +93,7 @@ describe("Container", () => {
 
   });
 
-    it("Should have an unique identifier", () => {
+    it("Should have an unique identifier", async () => {
 
       const container1 = new Container();
       const container2 = new Container();
@@ -103,7 +103,7 @@ describe("Container", () => {
 
   });
 
-    it("Should unbind a binding when requested", () => {
+    it("Should unbind a binding when requested", async () => {
 
       interface Ninja {}
 
@@ -123,14 +123,14 @@ describe("Container", () => {
 
   });
 
-    it("Should throw when cannot unbind", () => {
+    it("Should throw when cannot unbind", async () => {
       const serviceIdentifier = "Ninja";
       const container = new Container();
       const throwFunction = () => { container.unbind("Ninja"); };
       expect(throwFunction).to.throw(`${ERROR_MSGS.CANNOT_UNBIND} ${getServiceIdentifierAsString(serviceIdentifier)}`);
   });
 
-    it("Should unbind a binding when requested", () => {
+    it("Should unbind a binding when requested", async () => {
 
       interface Ninja {}
 
@@ -160,7 +160,7 @@ describe("Container", () => {
 
   });
 
-    it("Should be able unbound all dependencies", () => {
+    it("Should be able unbound all dependencies", async () => {
 
       interface Ninja {}
 
@@ -191,7 +191,7 @@ describe("Container", () => {
 
   });
 
-    it("Should NOT be able to get unregistered services", () => {
+    it("Should NOT be able to get unregistered services", async () => {
 
       interface Ninja {}
 
@@ -205,7 +205,7 @@ describe("Container", () => {
       expect(throwFunction).to.throw(`${ERROR_MSGS.NOT_REGISTERED} ${ninjaId}`);
   });
 
-    it("Should NOT be able to get ambiguous match", () => {
+    it("Should NOT be able to get ambiguous match", async () => {
 
       interface Warrior {}
 
@@ -234,7 +234,7 @@ describe("Container", () => {
 
   });
 
-    it("Should NOT be able to getAll of an unregistered services", () => {
+    it("Should NOT be able to getAll of an unregistered services", async () => {
 
       interface Ninja {}
 
@@ -249,25 +249,25 @@ describe("Container", () => {
 
   });
 
-    it("Should be able to get a string literal identifier as a string", () => {
+    it("Should be able to get a string literal identifier as a string", async () => {
         const Katana = "Katana";
         const KatanaStr = getServiceIdentifierAsString(Katana);
         expect(KatanaStr).to.equal("Katana");
     });
 
-    it("Should be able to get a symbol identifier as a string", () => {
+    it("Should be able to get a symbol identifier as a string", async () => {
         const KatanaSymbol = Symbol.for("Katana");
         const KatanaStr = getServiceIdentifierAsString(KatanaSymbol);
         expect(KatanaStr).to.equal("Symbol(Katana)");
     });
 
-    it("Should be able to get a class identifier as a string", () => {
+    it("Should be able to get a class identifier as a string", async () => {
         class Katana {}
         const KatanaStr = getServiceIdentifierAsString(Katana);
         expect(KatanaStr).to.equal("Katana");
     });
 
-    it("Should be able to snapshot and restore container", () => {
+    it("Should be able to snapshot and restore container", async () => {
 
         interface Warrior {
         }
@@ -309,7 +309,7 @@ describe("Container", () => {
         expect(() => container.restore()).to.throw(ERROR_MSGS.NO_MORE_SNAPSHOTS_AVAILABLE);
     });
 
-    it("Should be able to check is there are bindings available for a given identifier", () => {
+    it("Should be able to check is there are bindings available for a given identifier", async () => {
 
         interface Warrior {}
         const warriorId = "Warrior";
@@ -340,7 +340,7 @@ describe("Container", () => {
 
     });
 
-    it("Should be able to get services from parent container", () => {
+    it("Should be able to get services from parent container", async () => {
         const weaponIdentifier = "Weapon";
 
         @injectable()
@@ -358,7 +358,7 @@ describe("Container", () => {
         expect(secondChildContainer.get(weaponIdentifier)).to.be.instanceOf(Katana);
     });
 
-    it("Should be able to check if services are bound from parent container", () => {
+    it("Should be able to check if services are bound from parent container", async () => {
         const weaponIdentifier = "Weapon";
 
         @injectable()
@@ -376,7 +376,7 @@ describe("Container", () => {
         expect(secondChildContainer.isBound(weaponIdentifier)).to.be.equal(true);
     });
 
-    it("Should prioritize requested container to resolve a service identifier", () => {
+    it("Should prioritize requested container to resolve a service identifier", async () => {
         const weaponIdentifier = "Weapon";
 
         @injectable()
@@ -398,7 +398,7 @@ describe("Container", () => {
         expect(secondChildContainer.get(weaponIdentifier)).to.be.instanceOf(DivineRapier);
     });
 
-    it("Should be able to resolve named multi-injection", () => {
+    it("Should be able to resolve named multi-injection", async () => {
 
         interface Intl {
             hello?: string;
@@ -423,7 +423,7 @@ describe("Container", () => {
 
     });
 
-    it("Should be able to resolve tagged multi-injection", () => {
+    it("Should be able to resolve tagged multi-injection", async () => {
 
         interface Intl {
             hello?: string;
@@ -448,7 +448,7 @@ describe("Container", () => {
 
     });
 
-    it("Should be able configure the default scope at a global level", () => {
+    it("Should be able configure the default scope at a global level", async () => {
 
         interface Warrior {
             health: number;
@@ -498,7 +498,7 @@ describe("Container", () => {
 
     });
 
-    it("Should be able to configure automatic binding for @injectable() decorated classes", () => {
+    it("Should be able to configure automatic binding for @injectable() decorated classes", async () => {
 
         @injectable()
         class Katana {}
@@ -564,7 +564,7 @@ describe("Container", () => {
 
     });
 
-    it("Should be throw an exception if incorrect options is provided", () => {
+    it("Should be throw an exception if incorrect options is provided", async () => {
 
         const invalidOptions1: any = () => 0;
         const wrong1 = () => new Container(invalidOptions1);
@@ -580,7 +580,7 @@ describe("Container", () => {
 
     });
 
-    it("Should be able to merge multiple containers", () => {
+    it("Should be able to merge multiple containers", async () => {
 
         @injectable()
         class Ninja {
@@ -628,7 +628,7 @@ describe("Container", () => {
 
     });
 
-    it("Should be able create a child containers", () => {
+    it("Should be able create a child containers", async () => {
         const parent = new Container();
         const child = parent.createChild();
         if (child.parent === null) {
@@ -637,7 +637,7 @@ describe("Container", () => {
         expect(child.parent.id).to.equal(parent.id);
     });
 
-    it("Should inherit parent container options", () => {
+    it("Should inherit parent container options", async () => {
         @injectable()
         class Warrior { }
 
@@ -653,7 +653,7 @@ describe("Container", () => {
         expect(singletonWarrior1).to.equal(singletonWarrior2);
     });
 
-    it("Should be able to override options to child containers", () => {
+    it("Should be able to override options to child containers", async () => {
         @injectable()
         class Warrior { }
 
@@ -671,7 +671,7 @@ describe("Container", () => {
         expect(singletonWarrior1).to.equal(singletonWarrior2);
     });
 
-    it("Should be able check if a named binding is bound", () => {
+    it("Should be able check if a named binding is bound", async () => {
 
         const zero = "Zero";
         const invalidDivisor = "InvalidDivisor";
@@ -694,7 +694,7 @@ describe("Container", () => {
 
     });
 
-    it("Should be able to check if a named binding is bound from parent container", () => {
+    it("Should be able to check if a named binding is bound from parent container", async () => {
 
         const zero = "Zero";
         const invalidDivisor = "InvalidDivisor";
@@ -713,7 +713,7 @@ describe("Container", () => {
 
     });
 
-    it("Should be able to get a tagged binding", () => {
+    it("Should be able to get a tagged binding", async () => {
 
         const zero = "Zero";
         const isValidDivisor = "IsValidDivisor";
@@ -728,7 +728,7 @@ describe("Container", () => {
 
     });
 
-    it("Should be able to get a tagged binding from parent container", () => {
+    it("Should be able to get a tagged binding from parent container", async () => {
 
         const zero = "Zero";
         const isValidDivisor = "IsValidDivisor";
@@ -743,7 +743,7 @@ describe("Container", () => {
 
     });
 
-    it("Should be able check if a tagged binding is bound", () => {
+    it("Should be able check if a tagged binding is bound", async () => {
 
         const zero = "Zero";
         const isValidDivisor = "IsValidDivisor";
@@ -765,7 +765,7 @@ describe("Container", () => {
 
     });
 
-    it("Should be able to check if a tagged binding is bound from parent container", () => {
+    it("Should be able to check if a tagged binding is bound from parent container", async () => {
 
         const zero = "Zero";
         const isValidDivisor = "IsValidDivisor";
@@ -783,7 +783,7 @@ describe("Container", () => {
 
     });
 
-    it("Should be able to override a binding using rebind", () => {
+    it("Should be able to override a binding using rebind", async () => {
 
         const TYPES = {
             someType: "someType"

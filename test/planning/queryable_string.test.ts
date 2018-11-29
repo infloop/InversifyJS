@@ -1,20 +1,20 @@
 import { expect } from "chai";
 import { QueryableString } from "../../src/planning/queryable_string";
 
-describe("QueryableString", () => {
+describe("QueryableString", async () => {
 
-  it("Should be able to set its own properties", () => {
+  it("Should be able to set its own properties", async () => {
     const queryableString = new QueryableString("some_text");
     expect(queryableString.value()).to.eql("some_text");
   });
 
-  it("Should be able to return its value", () => {
+  it("Should be able to return its value", async () => {
     const queryableString = new QueryableString("some_text");
     expect(queryableString.value()).to.eql("some_text");
     expect(queryableString.value() === "some_other_text").to.eql(false);
   });
 
-  it("Should be able to identify if it's value starts with certain text", () => {
+  it("Should be able to identify if it's value starts with certain text", async () => {
     const queryableString = new QueryableString("some_text");
     expect(queryableString.startsWith("some")).to.eql(true);
     expect(queryableString.startsWith("s")).to.eql(true);
@@ -22,7 +22,7 @@ describe("QueryableString", () => {
     expect(queryableString.startsWith("_text")).to.eql(false);
   });
 
-  it("Should be able to identify if it's value ends with certain text", () => {
+  it("Should be able to identify if it's value ends with certain text", async () => {
     const queryableString = new QueryableString("some_text");
     expect(queryableString.endsWith("_text")).to.eql(true);
     expect(queryableString.endsWith("ext")).to.eql(true);
@@ -30,7 +30,7 @@ describe("QueryableString", () => {
     expect(queryableString.endsWith("some")).to.eql(false);
   });
 
-  it("Should be able to identify if it's value is equals to certain text", () => {
+  it("Should be able to identify if it's value is equals to certain text", async () => {
     const queryableString = new QueryableString("some_text");
     expect(queryableString.equals("some_text")).to.eql(true);
     expect(queryableString.contains("some_text ")).to.eql(false);

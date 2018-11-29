@@ -4,9 +4,9 @@ import { expect } from "chai";
 import "es6-symbol/implement";
 import { Container, inject, injectable, named } from "../../src/inversify";
 
-describe("Named default", () => {
+describe("Named default", async () => {
 
-    it("Should be able to inject a default to avoid ambiguous binding exceptions", () => {
+    it("Should be able to inject a default to avoid ambiguous binding exceptions", async () => {
 
         const TYPES = {
             Warrior: "Warrior",
@@ -84,7 +84,7 @@ describe("Named default", () => {
 
     });
 
-    it("Should be able to select a default to avoid ambiguous binding exceptions", () => {
+    it("Should be able to select a default to avoid ambiguous binding exceptions", async () => {
 
         const TYPES = {
             Weapon: "Weapon"

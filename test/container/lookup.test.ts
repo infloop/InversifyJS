@@ -15,28 +15,28 @@ class ClonableValue<T> implements interfaces.Clonable<ClonableValue<T>> {
   }
 }
 
-describe("Lookup", () => {
+describe("Lookup", async () => {
 
   const invalid: any = null;
 
-  it("Should throw when invoking get, remove or hasKey with a null key", () => {
+  it("Should throw when invoking get, remove or hasKey with a null key", async () => {
     const lookup = new Lookup<any>();
     expect(() => { lookup.get(invalid); }).to.throw(ERROR_MSGS.NULL_ARGUMENT);
     expect(() => { lookup.remove(invalid); }).to.throw(ERROR_MSGS.NULL_ARGUMENT);
     expect(() => { lookup.hasKey(invalid); }).to.throw(ERROR_MSGS.NULL_ARGUMENT);
   });
 
-  it("Should throw when attempting to add a null key", () => {
+  it("Should throw when attempting to add a null key", async () => {
     const lookup = new Lookup<any>();
     expect(() => { lookup.add(invalid, new ClonableValue<number>(1)); }).to.throw(ERROR_MSGS.NULL_ARGUMENT);
   });
 
-  it("Should throw when attempting to add a null value", () => {
+  it("Should throw when attempting to add a null value", async () => {
     const lookup = new Lookup<any>();
     expect(() => { lookup.add("TEST_KEY", null); }).to.throw(ERROR_MSGS.NULL_ARGUMENT);
   });
 
-  it("Should be able to link multiple values to a string key", () => {
+  it("Should be able to link multiple values to a string key", async () => {
     const lookup = new Lookup<any>();
     const key = "TEST_KEY";
     lookup.add(key, new ClonableValue<number>(1));
@@ -45,7 +45,7 @@ describe("Lookup", () => {
     expect(result.length).to.eql(2);
   });
 
-  it("Should be able to link multiple values a symbol key", () => {
+  it("Should be able to link multiple values a symbol key", async () => {
     const lookup = new Lookup<any>();
     const key = Symbol.for("TEST_KEY");
     lookup.add(key, new ClonableValue<number>(1));
@@ -54,13 +54,13 @@ describe("Lookup", () => {
     expect(result.length).to.eql(2);
   });
 
-  it("Should throws when key not found", () => {
+  it("Should throws when key not found", async () => {
     const lookup = new Lookup<any>();
     expect(() => { lookup.get("THIS_KEY_IS_NOT_AVAILABLE"); }).to.throw(ERROR_MSGS.KEY_NOT_FOUND);
     expect(() => { lookup.remove("THIS_KEY_IS_NOT_AVAILABLE"); }).to.throw(ERROR_MSGS.KEY_NOT_FOUND);
   });
 
-  it("Should be clonable", () => {
+  it("Should be clonable", async () => {
 
     const lookup = new Lookup<interfaces.Clonable<any>>();
     const key1 = Symbol.for("TEST_KEY");
@@ -86,7 +86,7 @@ describe("Lookup", () => {
 
   });
 
-  it("Should be able to remove a binding by a condition", () => {
+  it("Should be able to remove a binding by a condition", async () => {
 
     const moduleId1 = "moduleId1";
     const moduleId2 = "moduleId2";

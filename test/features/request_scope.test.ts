@@ -2,9 +2,9 @@ import { expect } from "chai";
 import * as now from "performance-now";
 import { Container, inject, injectable, named } from "../../src/inversify";
 
-describe("inRequestScope", () => {
+describe("inRequestScope", async () => {
 
-    it("Should support request scope in basic bindings", () => {
+    it("Should support request scope in basic bindings", async () => {
 
         const TYPE = {
             Warrior: Symbol("Warrior"),
@@ -82,7 +82,7 @@ describe("inRequestScope", () => {
 
     });
 
-    it("Should support request scope when using contraints", () => {
+    it("Should support request scope when using contraints", async () => {
 
         const TYPE = {
             Warrior: Symbol("Warrior"),

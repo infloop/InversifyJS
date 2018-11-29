@@ -6,9 +6,9 @@ import { Plan } from "../../src/planning/plan";
 import { Request } from "../../src/planning/request";
 import { Target } from "../../src/planning/target";
 
-describe("Context", () => {
+describe("Context", async () => {
 
-  it("Should set its own properties correctly", () => {
+  it("Should set its own properties correctly", async () => {
 
       const container = new Container();
       const context1 = new Context(container);
@@ -23,7 +23,7 @@ describe("Context", () => {
 
   });
 
-  it("Should be linkable to a Plan", () => {
+  it("Should be linkable to a Plan", async () => {
 
       const container = new Container();
       const context = new Context(container);

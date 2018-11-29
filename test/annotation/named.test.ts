@@ -55,9 +55,9 @@ class InvalidDecoratorUsageWarrior {
     }
 }
 
-describe("@named", () => {
+describe("@named", async () => {
 
-  it("Should generate metadata for named parameters", () => {
+  it("Should generate metadata for named parameters", async () => {
 
     const metadataKey = METADATA_KEY.TAGGED;
     const paramsMetadata = Reflect.getMetadata(metadataKey, NamedWarrior);
@@ -82,7 +82,7 @@ describe("@named", () => {
 
   });
 
-  it("Should generate metadata for named properties", () => {
+  it("Should generate metadata for named properties", async () => {
 
     class Warrior {
       @named("throwable")
@@ -99,7 +99,7 @@ describe("@named", () => {
 
   });
 
-  it("Should throw when applied multiple times", () => {
+  it("Should throw when applied multiple times", async () => {
 
     const useDecoratorMoreThanOnce = function() {
       __decorate([ __param(0, named("a")), __param(0, named("b")) ], InvalidDecoratorUsageWarrior);
@@ -110,7 +110,7 @@ describe("@named", () => {
 
   });
 
-  it("Should throw when not applied to a constructor", () => {
+  it("Should throw when not applied to a constructor", async () => {
 
     const useDecoratorOnMethodThatIsNotAConstructor = function() {
       __decorate([ __param(0, named("a")) ],
@@ -123,7 +123,7 @@ describe("@named", () => {
 
   });
 
-  it("Should be usable in VanillaJS applications", () => {
+  it("Should be usable in VanillaJS applications", async () => {
 
     interface Katana {}
     interface Shurien {}

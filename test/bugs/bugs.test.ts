@@ -17,9 +17,9 @@ import { MetadataReader } from "../../src/planning/metadata_reader";
 import { getDependencies } from "../../src/planning/reflection_utils";
 import { getFunctionName, getServiceIdentifierAsString } from "../../src/utils/serialization";
 
-describe("Bugs", () => {
+describe("Bugs", async () => {
 
-    it("Should throw when args length of base and derived class not match", () => {
+    it("Should throw when args length of base and derived class not match", async () => {
 
         @injectable()
         class Warrior {
@@ -48,7 +48,7 @@ describe("Bugs", () => {
 
     });
 
-    it("Should not throw when args length of base and derived class match (property setter)", () => {
+    it("Should not throw when args length of base and derived class match (property setter)", async () => {
 
         @injectable()
         class Warrior {
@@ -73,7 +73,7 @@ describe("Bugs", () => {
 
     });
 
-    it("Should not throw when args length of base and derived class match", () => {
+    it("Should not throw when args length of base and derived class match", async () => {
 
         // Injecting into the derived class
 
@@ -107,7 +107,7 @@ describe("Bugs", () => {
 
     });
 
-    it("Should not throw when args length of base and derived class match", () => {
+    it("Should not throw when args length of base and derived class match", async () => {
 
         // Injecting into the derived class with multiple args
 
@@ -161,7 +161,7 @@ describe("Bugs", () => {
 
     });
 
-    it("Should be able to convert a Symbol value to a string", () => {
+    it("Should be able to convert a Symbol value to a string", async () => {
 
         interface Weapon {}
 
@@ -175,7 +175,7 @@ describe("Bugs", () => {
 
     });
 
-    it("Should be not require @inject annotation in toConstructor bindings", () => {
+    it("Should be not require @inject annotation in toConstructor bindings", async () => {
 
         interface ICategorySortingFn {}
         interface IContentSortingFn {}
@@ -204,7 +204,7 @@ describe("Bugs", () => {
 
     });
 
-    it("Should be able to combine tagged injection and constant value bindings", () => {
+    it("Should be able to combine tagged injection and constant value bindings", async () => {
 
         const container = new Container();
 
@@ -218,7 +218,7 @@ describe("Bugs", () => {
 
     });
 
-    it("Should be able to combine dynamic value with singleton scope", () => {
+    it("Should be able to combine dynamic value with singleton scope", async () => {
 
         const container = new Container();
 
@@ -240,7 +240,7 @@ describe("Bugs", () => {
 
     });
 
-    it("Should be able to use an abstract class as the serviceIdentifier", () => {
+    it("Should be able to use an abstract class as the serviceIdentifier", async () => {
 
         @injectable()
         abstract class Animal {
@@ -285,7 +285,7 @@ describe("Bugs", () => {
 
     });
 
-    it("Should be able to identify is a target is tagged", () => {
+    it("Should be able to identify is a target is tagged", async () => {
 
         const TYPES = {
             Dependency1: Symbol.for("Dependency1"),
@@ -433,7 +433,7 @@ describe("Bugs", () => {
 
     });
 
-    it("Helper getFunctionName should not throw when using an anonymous function", () => {
+    it("Helper getFunctionName should not throw when using an anonymous function", async () => {
 
         const name = getFunctionName(function (options: any) {
             this.configure(options);
@@ -445,7 +445,7 @@ describe("Bugs", () => {
 
     });
 
-    it("Should be able to get all the available bindings for a service identifier", () => {
+    it("Should be able to get all the available bindings for a service identifier", async () => {
 
         const controllerId = "SomeControllerID";
         const tagA = "A";
@@ -501,7 +501,7 @@ describe("Bugs", () => {
 
     });
 
-    it("Should not be able to get a named dependency if no named bindings are registered", () => {
+    it("Should not be able to get a named dependency if no named bindings are registered", async () => {
 
         const TYPES = {
             Weapon: "Weapon"
@@ -531,13 +531,13 @@ describe("Bugs", () => {
 
     });
 
-    it("Should throw a friendly error when binding a non-class using toSelf", () => {
+    it("Should throw a friendly error when binding a non-class using toSelf", async () => {
         const container = new Container();
         const throws = () => { container.bind("testId").toSelf(); };
         expect(throws).to.throw(ERROR_MSGS.INVALID_TO_SELF_VALUE);
     });
 
-    it("Should generate correct metadata when the spread operator is used", () => {
+    it("Should generate correct metadata when the spread operator is used", async () => {
 
         const BAR = Symbol.for("BAR");
         const FOO = Symbol.for("FOO");
@@ -575,7 +575,7 @@ describe("Bugs", () => {
 
     });
 
-    it("Should be able to inject into an abstract class", () => {
+    it("Should be able to inject into an abstract class", async () => {
 
         interface Weapon {}
 
@@ -626,7 +626,7 @@ describe("Bugs", () => {
 
     });
 
-    it("Should be able apply inject to property shortcut", () => {
+    it("Should be able apply inject to property shortcut", async () => {
 
         interface Weapon {
             use(): string;
@@ -658,7 +658,7 @@ describe("Bugs", () => {
 
     });
 
-    it("Should be able to inject into abstract base class without decorators", () => {
+    it("Should be able to inject into abstract base class without decorators", async () => {
 
         const TYPES = {
             Warrior: "Warrior",
@@ -741,7 +741,7 @@ describe("Bugs", () => {
         expect(samurai.primaryWeapon.name).to.eql("Katana");
     });
 
-    it("Should be able to combine unmanaged and managed injections ", () => {
+    it("Should be able to combine unmanaged and managed injections ", async () => {
 
         interface Model<T> {
             instance: T;
@@ -812,7 +812,7 @@ describe("Bugs", () => {
 
     });
 
-    it("Should detect missing annotations in base classes", () => {
+    it("Should detect missing annotations in base classes", async () => {
 
         @injectable()
         class Katana implements Katana {

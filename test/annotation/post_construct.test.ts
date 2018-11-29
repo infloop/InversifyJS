@@ -5,9 +5,9 @@ import * as ERRORS_MSGS from "../../src/constants/error_msgs";
 import * as METADATA_KEY from "../../src/constants/metadata_keys";
 import { decorate } from "../../src/inversify";
 
-describe("@postConstruct", () => {
+describe("@postConstruct", async () => {
 
-    it("Should generate metadata for the decorated method", () => {
+    it("Should generate metadata for the decorated method", async () => {
         class Katana {
             private useMessage: string;
 
@@ -27,7 +27,7 @@ describe("@postConstruct", () => {
         expect(metadata.value).to.be.equal("testMethod");
     });
 
-    it("Should throw when applied multiple times", () => {
+    it("Should throw when applied multiple times", async () => {
         function setup() {
             class Katana {
                 @postConstruct()
@@ -41,7 +41,7 @@ describe("@postConstruct", () => {
         expect(setup).to.throw(ERRORS_MSGS.MULTIPLE_POST_CONSTRUCT_METHODS);
     });
 
-    it("Should be usable in VanillaJS applications", () => {
+    it("Should be usable in VanillaJS applications", async () => {
 
         const VanillaJSWarrior = function () {
                    // ...

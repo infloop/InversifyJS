@@ -4,9 +4,9 @@ import * as METADATA_KEY from "../../src/constants/metadata_keys";
 import { Metadata } from "../../src/planning/metadata";
 import { Target } from "../../src/planning/target";
 
-describe("Target", () => {
+describe("Target", async () => {
 
-    it("Should be able to create instances of untagged targets", () => {
+    it("Should be able to create instances of untagged targets", async () => {
         const target = new Target(TargetTypeEnum.ConstructorArgument, "katana", "Katana");
         expect(target.serviceIdentifier).to.be.eql("Katana");
         expect(target.name.value()).to.be.eql("katana");
@@ -14,7 +14,7 @@ describe("Target", () => {
         expect(target.metadata.length).to.be.eql(0);
     });
 
-    it("Should be able to create instances of named targets", () => {
+    it("Should be able to create instances of named targets", async () => {
         const target = new Target(TargetTypeEnum.ConstructorArgument, "katana", "Katana", "primary");
         expect(target.serviceIdentifier).to.be.eql("Katana");
         expect(target.name.value()).to.be.eql("katana");
@@ -24,7 +24,7 @@ describe("Target", () => {
         expect(target.metadata[0].value).to.be.eql("primary");
     });
 
-    it("Should be able to create instances of tagged targets", () => {
+    it("Should be able to create instances of tagged targets", async () => {
         const target = new Target(TargetTypeEnum.ConstructorArgument, "katana", "Katana", new Metadata("power", 5));
         expect(target.serviceIdentifier).to.be.eql("Katana");
         expect(target.name.value()).to.be.eql("katana");
@@ -34,14 +34,14 @@ describe("Target", () => {
         expect(target.metadata[0].value).to.be.eql(5);
     });
 
-    it("Should be able to identify named metadata", () => {
+    it("Should be able to identify named metadata", async () => {
         const target1 = new Target(TargetTypeEnum.ConstructorArgument, "katana", "Katana", "primary");
         expect(target1.isNamed()).to.be.eql(true);
         const target2 = new Target(TargetTypeEnum.ConstructorArgument, "katana", "Katana", new Metadata("power", 5));
         expect(target2.isNamed()).to.be.eql(false);
     });
 
-    it("Should be able to identify multi-injections", () => {
+    it("Should be able to identify multi-injections", async () => {
         const target1 = new Target(TargetTypeEnum.ConstructorArgument, "katana", "Katana");
         target1.metadata.push(new Metadata(METADATA_KEY.MULTI_INJECT_TAG, "Katana"));
         expect(target1.isArray()).to.be.eql(true);
@@ -49,7 +49,7 @@ describe("Target", () => {
         expect(target2.isArray()).to.be.eql(false);
     });
 
-    it("Should be able to match multi-inject for a specified service metadata", () => {
+    it("Should be able to match multi-inject for a specified service metadata", async () => {
         const target1 = new Target(TargetTypeEnum.ConstructorArgument, "katana", "Katana");
         target1.metadata.push(new Metadata(METADATA_KEY.MULTI_INJECT_TAG, "Katana"));
         target1.metadata.push(new Metadata(METADATA_KEY.INJECT_TAG, "Shuriken"));
@@ -57,13 +57,13 @@ describe("Target", () => {
         expect(target1.matchesArray("Shuriken")).to.be.eql(false);
     });
 
-    it("Should be able to match named metadata", () => {
+    it("Should be able to match named metadata", async () => {
         const target1 = new Target(TargetTypeEnum.ConstructorArgument, "katana", "Katana", "primary");
         expect(target1.matchesNamedTag("primary")).to.be.eql(true);
         expect(target1.matchesNamedTag("secondary")).to.be.eql(false);
     });
 
-    it("Should be able to identify tagged metadata", () => {
+    it("Should be able to identify tagged metadata", async () => {
 
         const target = new Target(TargetTypeEnum.ConstructorArgument, "katana", "Katana");
         expect(target.isTagged()).to.be.eql(false);
@@ -80,13 +80,13 @@ describe("Target", () => {
 
     });
 
-    it("Should be able to match tagged metadata", () => {
+    it("Should be able to match tagged metadata", async () => {
         const target1 = new Target(TargetTypeEnum.ConstructorArgument, "katana", "Katana", new Metadata("power", 5));
         expect(target1.matchesTag("power")(5)).to.be.eql(true);
         expect(target1.matchesTag("power")(2)).to.be.eql(false);
     });
 
-    it("Should contain an unique identifier", () => {
+    it("Should contain an unique identifier", async () => {
         const target1 = new Target(TargetTypeEnum.ConstructorArgument, "katana", "Katana", new Metadata("power", 5));
         const target2 = new Target(TargetTypeEnum.ConstructorArgument, "katana", "Katana", new Metadata("power", 5));
         expect(target1.id).to.be.a("number");

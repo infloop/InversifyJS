@@ -3,9 +3,9 @@ import { Binding } from "../../src/bindings/binding";
 import { BindingScopeEnum } from "../../src/constants/literal_types";
 import * as Stubs from "../utils/stubs";
 
-describe("Binding", () => {
+describe("Binding", async () => {
 
-  it("Should set its own properties correctly", () => {
+  it("Should set its own properties correctly", async () => {
 
     const fooIdentifier = "FooInterface";
     const fooBinding =  new Binding<Stubs.FooInterface>(fooIdentifier, BindingScopeEnum.Transient);

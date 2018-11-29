@@ -2,9 +2,9 @@ import { expect } from "chai";
 import * as ERROR_MSGS from "../../src/constants/error_msgs";
 import { Container, inject, injectable } from "../../src/inversify";
 
-describe("Node", () => {
+describe("Node", async () => {
 
-    it("Should throw if circular dependencies found", () => {
+    it("Should throw if circular dependencies found", async () => {
 
         interface A {}
         interface B {}

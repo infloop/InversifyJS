@@ -73,9 +73,9 @@ class InvalidDecoratorUsageWarrior {
     }
 }
 
-describe("@Tagged", () => {
+describe("@Tagged", async () => {
 
-  it("Should generate metadata for tagged parameters", () => {
+  it("Should generate metadata for tagged parameters", async () => {
 
     const metadataKey = METADATA_KEY.TAGGED;
     const paramsMetadata = Reflect.getMetadata(metadataKey, TaggedWarrior);
@@ -103,7 +103,7 @@ describe("@Tagged", () => {
     expect(paramsMetadata["2"]).to.eq(undefined);
   });
 
-  it("Should generate metadata for tagged properties", () => {
+  it("Should generate metadata for tagged properties", async () => {
 
     class Warrior {
       @tagged("throwable", false)
@@ -119,7 +119,7 @@ describe("@Tagged", () => {
 
   });
 
-  it("Should generate metadata for parameters tagged multiple times", () => {
+  it("Should generate metadata for parameters tagged multiple times", async () => {
     const metadataKey = METADATA_KEY.TAGGED;
     const paramsMetadata = Reflect.getMetadata(metadataKey, DoubleTaggedWarrior);
     expect(paramsMetadata).to.be.an("object");
@@ -155,7 +155,7 @@ describe("@Tagged", () => {
 
   });
 
-  it("Should throw when applied multiple times", () => {
+  it("Should throw when applied multiple times", async () => {
 
     const metadataKey = "a";
 
@@ -168,7 +168,7 @@ describe("@Tagged", () => {
 
   });
 
-  it("Should throw when not applied to a constructor", () => {
+  it("Should throw when not applied to a constructor", async () => {
 
     const useDecoratorOnMethodThatIsNotAConstructor = function() {
       __decorate([ __param(0, tagged("a", 1)) ],
@@ -181,7 +181,7 @@ describe("@Tagged", () => {
 
   });
 
-  it("Should be usable in VanillaJS applications", () => {
+  it("Should be usable in VanillaJS applications", async () => {
 
     interface Katana {}
     interface Shuriken {}

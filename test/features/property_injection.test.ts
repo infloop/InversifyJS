@@ -8,9 +8,9 @@ import {
     tagged, unmanaged
 } from "../../src/inversify";
 
-describe("Property Injection", () => {
+describe("Property Injection", async () => {
 
-    it("Should be able to inject a property", () => {
+    it("Should be able to inject a property", async () => {
 
         const TYPES = {
             Warrior: "Warrior",
@@ -55,7 +55,7 @@ describe("Property Injection", () => {
 
     });
 
-    it("Should be able to inject a property combined with constructor injection", () => {
+    it("Should be able to inject a property combined with constructor injection", async () => {
 
         const TYPES = {
             Warrior: "Warrior",
@@ -125,7 +125,7 @@ describe("Property Injection", () => {
 
     });
 
-    it("Should be able to inject a named property", () => {
+    it("Should be able to inject a named property", async () => {
 
         const TYPES = {
             Warrior: "Warrior",
@@ -195,7 +195,7 @@ describe("Property Injection", () => {
 
     });
 
-    it("Should be able to inject a tagged property", () => {
+    it("Should be able to inject a tagged property", async () => {
 
         const TYPES = {
             Warrior: "Warrior",
@@ -266,7 +266,7 @@ describe("Property Injection", () => {
 
     });
 
-    it("Should be able to multi-inject a property", () => {
+    it("Should be able to multi-inject a property", async () => {
 
         const TYPES = {
             Warrior: "Warrior",
@@ -325,7 +325,7 @@ describe("Property Injection", () => {
 
     });
 
-    it("Should be able to inject a property in a base class", () => {
+    it("Should be able to inject a property in a base class", async () => {
 
         const TYPES = {
             Warrior: "Warrior",
@@ -403,7 +403,7 @@ describe("Property Injection", () => {
 
     });
 
-    it("Should be able to flag a property injection as optional", () => {
+    it("Should be able to flag a property injection as optional", async () => {
 
         const TYPES = {
             Route: "Route",

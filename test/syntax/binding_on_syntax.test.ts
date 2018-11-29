@@ -5,9 +5,9 @@ import { BindingScopeEnum } from "../../src/constants/literal_types";
 import { interfaces } from "../../src/interfaces/interfaces";
 import { BindingOnSyntax } from "../../src/syntax/binding_on_syntax";
 
-describe("BindingOnSyntax", () => {
+describe("BindingOnSyntax", async () => {
 
-    it("Should set its own properties correctly", () => {
+    it("Should set its own properties correctly", async () => {
 
         interface Ninja {}
         const ninjaIdentifier = "Ninja";
@@ -22,7 +22,7 @@ describe("BindingOnSyntax", () => {
 
     });
 
-    it("Should be able to configure the activation handler of a binding", () => {
+    it("Should be able to configure the activation handler of a binding", async () => {
 
         interface Ninja {}
         const ninjaIdentifier = "Ninja";

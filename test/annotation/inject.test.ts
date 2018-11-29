@@ -68,9 +68,9 @@ class InvalidDecoratorUsageWarrior {
 
 }
 
-describe("@inject", () => {
+describe("@inject", async () => {
 
-  it("Should generate metadata for named parameters", () => {
+  it("Should generate metadata for named parameters", async () => {
 
     const metadataKey = METADATA_KEY.TAGGED;
     const paramsMetadata = Reflect.getMetadata(metadataKey, DecoratedWarrior);
@@ -102,7 +102,7 @@ describe("@inject", () => {
 
   });
 
-  it("Should throw when applied multiple times", () => {
+  it("Should throw when applied multiple times", async () => {
 
     const useDecoratorMoreThanOnce = function() {
       __decorate([ __param(0, inject("Katana")), __param(0, inject("Shurien")) ], InvalidDecoratorUsageWarrior);
@@ -113,7 +113,7 @@ describe("@inject", () => {
 
   });
 
-  it("Should throw when not applayed to a constructor", () => {
+  it("Should throw when not applayed to a constructor", async () => {
 
     const useDecoratorOnMethodThatIsNotAConstructor = function() {
       __decorate([ __param(0, inject("Katana")) ],
@@ -126,7 +126,7 @@ describe("@inject", () => {
 
   });
 
-  it("Should throw when applied with undefined", () => {
+  it("Should throw when applied with undefined", async () => {
 
     // this can happen when there is circular dependency between symbols
     const useDecoratorWithUndefined = function() {
@@ -138,7 +138,7 @@ describe("@inject", () => {
 
   });
 
-  it("Should be usable in VanillaJS applications", () => {
+  it("Should be usable in VanillaJS applications", async () => {
 
     interface Shurien {}
 

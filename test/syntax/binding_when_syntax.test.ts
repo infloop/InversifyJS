@@ -10,9 +10,9 @@ import { Target } from "../../src/planning/target";
 import { BindingWhenSyntax } from "../../src/syntax/binding_when_syntax";
 import { typeConstraint } from "../../src/syntax/constraint_helpers";
 
-describe("BindingWhenSyntax", () => {
+describe("BindingWhenSyntax", async () => {
 
-    it("Should set its own properties correctly", () => {
+    it("Should set its own properties correctly", async () => {
 
         interface Ninja {}
         const ninjaIdentifier = "Ninja";
@@ -27,7 +27,7 @@ describe("BindingWhenSyntax", () => {
 
     });
 
-    it("Should be able to configure custom constraint of a binding", () => {
+    it("Should be able to configure custom constraint of a binding", async () => {
 
         interface Ninja {}
         const ninjaIdentifier = "Ninja";
@@ -45,7 +45,7 @@ describe("BindingWhenSyntax", () => {
 
     });
 
-    it("Should be able to constraint a binding to a named target", () => {
+    it("Should be able to constraint a binding to a named target", async () => {
 
         interface Ninja {}
         const ninjaIdentifier = "Ninja";
@@ -70,7 +70,7 @@ describe("BindingWhenSyntax", () => {
 
     });
 
-    it("Should be able to constraint a binding to a tagged target", () => {
+    it("Should be able to constraint a binding to a tagged target", async () => {
 
         interface Ninja {}
         const ninjaIdentifier = "Ninja";
@@ -93,7 +93,7 @@ describe("BindingWhenSyntax", () => {
 
     });
 
-    it("Should be able to constraint a binding to its parent", () => {
+    it("Should be able to constraint a binding to its parent", async () => {
 
         interface Weapon {
             name: string;
@@ -177,7 +177,7 @@ describe("BindingWhenSyntax", () => {
 
     });
 
-    it("Should be able to constraint a binding to a named parent", () => {
+    it("Should be able to constraint a binding to a named parent", async () => {
 
         interface Weapon {
             name: string;
@@ -241,7 +241,7 @@ describe("BindingWhenSyntax", () => {
 
     });
 
-    it("Should be able to constraint a binding to a tagged parent", () => {
+    it("Should be able to constraint a binding to a tagged parent", async () => {
 
         interface Weapon {
             name: string;
@@ -304,7 +304,7 @@ describe("BindingWhenSyntax", () => {
 
     });
 
-    describe("BindingWhenSyntax.when*Ancestor*()", () => {
+    describe("BindingWhenSyntax.when*Ancestor*()", async () => {
 
         interface Material {
             name: string;
@@ -407,7 +407,7 @@ describe("BindingWhenSyntax", () => {
         const ironShurikenRequest = new Request("Weapon", context, ninjaMasterRequest, shurikenBinding, shurikenTarget);
         const woodShurikenRequest = new Request("Weapon", context, ninjaStudentRequest, shurikenBinding, shurikenTarget);
 
-        it("Should be able to apply a type constraint to some of its ancestors", () => {
+        it("Should be able to apply a type constraint to some of its ancestors", async () => {
 
             shurikenBindingWhenSyntax.whenAnyAncestorIs(NinjaMaster);
             expect(shurikenBinding.constraint(woodShurikenRequest)).eql(false);
@@ -427,7 +427,7 @@ describe("BindingWhenSyntax", () => {
 
         });
 
-        it("Should be able to apply a type constraint to none of its ancestors", () => {
+        it("Should be able to apply a type constraint to none of its ancestors", async () => {
 
             shurikenBindingWhenSyntax.whenNoAncestorIs(NinjaMaster);
             expect(shurikenBinding.constraint(woodShurikenRequest)).eql(true);
@@ -447,7 +447,7 @@ describe("BindingWhenSyntax", () => {
 
         });
 
-        it("Should be able to apply a named constraint to some of its ancestors", () => {
+        it("Should be able to apply a named constraint to some of its ancestors", async () => {
 
             shurikenBindingWhenSyntax.whenAnyAncestorNamed("chinese");
             expect(shurikenBinding.constraint(woodShurikenRequest)).eql(false);
@@ -467,7 +467,7 @@ describe("BindingWhenSyntax", () => {
 
         });
 
-        it("Should be able to apply a named constraint to none of its ancestors", () => {
+        it("Should be able to apply a named constraint to none of its ancestors", async () => {
 
             shurikenBindingWhenSyntax.whenNoAncestorNamed("chinese");
             expect(shurikenBinding.constraint(woodShurikenRequest)).eql(true);
@@ -487,7 +487,7 @@ describe("BindingWhenSyntax", () => {
 
         });
 
-        it("Should be able to apply a tagged constraint to some of its ancestors", () => {
+        it("Should be able to apply a tagged constraint to some of its ancestors", async () => {
 
             shurikenBindingWhenSyntax.whenAnyAncestorTagged("sneaky", true);
             expect(shurikenBinding.constraint(woodShurikenRequest)).eql(true);
@@ -507,7 +507,7 @@ describe("BindingWhenSyntax", () => {
 
         });
 
-        it("Should be able to apply a tagged constraint to none of its ancestors", () => {
+        it("Should be able to apply a tagged constraint to none of its ancestors", async () => {
 
             shurikenBindingWhenSyntax.whenNoAncestorTagged("sneaky", true);
             expect(shurikenBinding.constraint(woodShurikenRequest)).eql(false);
@@ -527,7 +527,7 @@ describe("BindingWhenSyntax", () => {
 
         });
 
-        it("Should be able to apply a custom constraint to some of its ancestors", () => {
+        it("Should be able to apply a custom constraint to some of its ancestors", async () => {
 
             const anyAncestorIsNinjaMasterConstraint = typeConstraint(NinjaMaster);
             const anyAncestorIsNinjaStudentConstraint = typeConstraint(NinjaStudent);
@@ -553,7 +553,7 @@ describe("BindingWhenSyntax", () => {
 
         });
 
-        it("Should be able to apply a custom constraint to none of its ancestors", () => {
+        it("Should be able to apply a custom constraint to none of its ancestors", async () => {
 
             const anyAncestorIsNinjaMasterConstraint = typeConstraint(NinjaMaster);
             const anyAncestorIsNinjaStudentConstraint = typeConstraint(NinjaStudent);

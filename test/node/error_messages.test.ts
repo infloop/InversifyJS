@@ -2,7 +2,7 @@ import { expect } from "chai";
 import * as ERROR_MSGS from "../../src/constants/error_msgs";
 import { Container, injectable } from "../../src/inversify";
 
-describe("Error message when resolving fails", () => {
+describe("Error message when resolving fails", async () => {
     interface Weapon { }
 
     @injectable()
@@ -14,7 +14,7 @@ describe("Error message when resolving fails", () => {
     @injectable()
     class Bokken implements Weapon { }
 
-    it("Should contain correct message and the serviceIdentifier in error message", () => {
+    it("Should contain correct message and the serviceIdentifier in error message", async () => {
         const container = new Container();
 
         container.bind<Weapon>("Weapon").to(Katana);
@@ -25,7 +25,7 @@ describe("Error message when resolving fails", () => {
 
     });
 
-    it("Should contain the provided name in error message when target is named", () => {
+    it("Should contain the provided name in error message when target is named", async () => {
 
         const container = new Container();
         const tryGetNamedWeapon = (name: string | number | symbol) => { container.getNamed("Weapon", name); };
@@ -36,7 +36,7 @@ describe("Error message when resolving fails", () => {
 
     });
 
-    it("Should contain the provided tag in error message when target is tagged", () => {
+    it("Should contain the provided tag in error message when target is tagged", async () => {
 
         const container = new Container();
         const tryGetTaggedWeapon = (tag: string | number | symbol) => { container.getTagged("Weapon", tag, true); };
@@ -47,7 +47,7 @@ describe("Error message when resolving fails", () => {
 
     });
 
-    it("Should list all possible bindings in error message if no matching binding found", () => {
+    it("Should list all possible bindings in error message if no matching binding found", async () => {
 
         const container = new Container();
         container.bind<Weapon>("Weapon").to(Katana).whenTargetNamed("strong");
@@ -63,7 +63,7 @@ describe("Error message when resolving fails", () => {
         }
     });
 
-    it("Should list all possible bindings in error message if ambiguous matching binding found", () => {
+    it("Should list all possible bindings in error message if ambiguous matching binding found", async () => {
 
         const container = new Container();
         container.bind<Weapon>("Weapon").to(Katana).whenTargetNamed("strong");

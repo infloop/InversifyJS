@@ -1,9 +1,9 @@
 import { expect } from "chai";
 import { BindingScopeEnum, Container, injectable } from "../../src/inversify";
 
-describe("Issue 706", () => {
+describe("Issue 706", async () => {
 
-    it("Should expose BindingScopeEnum as part of the public API", () => {
+    it("Should expose BindingScopeEnum as part of the public API", async () => {
 
         @injectable()
         class SomeClass {

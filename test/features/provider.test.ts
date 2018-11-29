@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { Container, injectable } from "../../src/inversify";
 
-describe("Provider", () => {
+describe("Provider", async () => {
 
     it("Should support complex asynchronous initialization processes", (done) => {
 

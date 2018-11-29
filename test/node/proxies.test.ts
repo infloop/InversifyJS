@@ -3,9 +3,9 @@ import * as Proxy from "harmony-proxy";
 import { interfaces } from "../../src/interfaces/interfaces";
 import { Container, inject, injectable } from "../../src/inversify";
 
-describe("InversifyJS", () => {
+describe("InversifyJS", async () => {
 
-    it("Should support the injection of proxied objects", () => {
+    it("Should support the injection of proxied objects", async () => {
 
         const weaponId = "Weapon";
         const warriorId = "Warrior";

@@ -52,9 +52,9 @@ class InvalidDecoratorUsageWarrior {
 
 }
 
-describe("@multiInject", () => {
+describe("@multiInject", async () => {
 
-  it("Should generate metadata for named parameters", () => {
+  it("Should generate metadata for named parameters", async () => {
     const metadataKey = METADATA_KEY.TAGGED;
     const paramsMetadata = Reflect.getMetadata(metadataKey, DecoratedWarrior);
     expect(paramsMetadata).to.be.an("object");
@@ -71,7 +71,7 @@ describe("@multiInject", () => {
 
   });
 
-  it("Should throw when applied multiple times", () => {
+  it("Should throw when applied multiple times", async () => {
 
     const useDecoratorMoreThanOnce = function() {
       __decorate([ __param(0, multiInject("Weapon")), __param(0, multiInject("Weapon")) ], InvalidDecoratorUsageWarrior);
@@ -82,7 +82,7 @@ describe("@multiInject", () => {
 
   });
 
-  it("Should throw when not applied to a constructor", () => {
+  it("Should throw when not applied to a constructor", async () => {
 
     const useDecoratorOnMethodThatIsNotAConstructor = function() {
       __decorate([ __param(0, multiInject("Weapon")) ],
@@ -95,7 +95,7 @@ describe("@multiInject", () => {
 
   });
 
-  it("Should be usable in VanillaJS applications", () => {
+  it("Should be usable in VanillaJS applications", async () => {
 
     interface Katana {}
     interface Shurien {}
