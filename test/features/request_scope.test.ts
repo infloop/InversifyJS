@@ -48,8 +48,8 @@ describe("inRequestScope", async () => {
         const container = new Container();
         container.bind<Weapon>(TYPE.Weapon).to(Katana);
         container.bind<Warrior>(TYPE.Warrior).to(Samurai);
-        const samurai = container.get<Warrior>(TYPE.Warrior);
-        const samurai2 = container.get<Warrior>(TYPE.Warrior);
+        const samurai = await container.get<Warrior>(TYPE.Warrior);
+        const samurai2 = await container.get<Warrior>(TYPE.Warrior);
 
         // One requests should use two instances because scope is transient
         expect(samurai.primaryWeapon.use()).not.to.eql(samurai.secondaryWeapon.use());
@@ -66,8 +66,8 @@ describe("inRequestScope", async () => {
         const container1 = new Container();
         container1.bind<Weapon>(TYPE.Weapon).to(Katana).inRequestScope(); // Important
         container1.bind<Warrior>(TYPE.Warrior).to(Samurai);
-        const samurai3 = container1.get<Warrior>(TYPE.Warrior);
-        const samurai4 = container1.get<Warrior>(TYPE.Warrior);
+        const samurai3 = await container1.get<Warrior>(TYPE.Warrior);
+        const samurai4 = await container1.get<Warrior>(TYPE.Warrior);
 
         // One requests should use one instance because scope is request scope
         expect(samurai3.primaryWeapon.use()).to.eql(samurai3.secondaryWeapon.use());
@@ -149,8 +149,8 @@ describe("inRequestScope", async () => {
 
         container.bind<Warrior>(TYPE.Warrior).to(Samurai);
 
-        const samurai1 = container.get<Warrior>(TYPE.Warrior);
-        const samurai2 = container.get<Warrior>(TYPE.Warrior);
+        const samurai1 = await container.get<Warrior>(TYPE.Warrior);
+        const samurai2 = await container.get<Warrior>(TYPE.Warrior);
 
         // Katana and Shuriken are two instances
         expect(samurai1.primaryWeapon.use()).not.to.eql(samurai1.secondaryWeapon.use());

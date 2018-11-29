@@ -66,7 +66,7 @@ describe("Middleware", async () => {
 
         container.bind<Ninja>("Ninja").to(Ninja);
 
-        const ninja = container.get<Ninja>("Ninja");
+        const ninja = await container.get<Ninja>("Ninja");
 
         expect(ninja instanceof Ninja).eql(true);
         expect(log.length).eql(2);
@@ -104,7 +104,7 @@ describe("Middleware", async () => {
         container.applyMiddleware(middleware2);  // another point in time
         container.bind<Ninja>("Ninja").to(Ninja);
 
-        const ninja = container.get<Ninja>("Ninja");
+        const ninja = await container.get<Ninja>("Ninja");
 
         expect(ninja instanceof Ninja).eql(true);
         expect(log.length).eql(2);
@@ -141,7 +141,7 @@ describe("Middleware", async () => {
         container.applyMiddleware(middleware1, middleware2);
         container.bind<Ninja>("Ninja").to(Ninja);
 
-        const ninja = container.get<Ninja>("Ninja");
+        const ninja = await container.get<Ninja>("Ninja");
 
         expect(ninja instanceof Ninja).eql(true);
         expect(log.length).eql(2);
@@ -299,7 +299,7 @@ describe("Middleware", async () => {
         container.applyMiddleware(middleware1, middleware2);
         container.bind<Ninja>("Ninja").to(Ninja);
 
-        const ninja = container.get<Ninja>("Ninja");
+        const ninja = await container.get<Ninja>("Ninja");
 
         expect(ninja instanceof Ninja).eql(true);
         expect(log.length).eql(2);

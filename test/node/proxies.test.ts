@@ -50,7 +50,7 @@ describe("InversifyJS", async () => {
             return katana;
         });
 
-        const ninja = container.get<Warrior>(warriorId);
+        const ninja = await container.get<Warrior>(warriorId);
         ninja.weapon.use();
 
         expect(log.length).eql(2);

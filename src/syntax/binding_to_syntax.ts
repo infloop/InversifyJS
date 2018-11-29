@@ -34,7 +34,7 @@ class BindingToSyntax<T> implements interfaces.BindingToSyntax<T> {
         return new BindingWhenOnSyntax<T>(this._binding);
     }
 
-    public toDynamicValue(func: (context: interfaces.Context) => T): interfaces.BindingInWhenOnSyntax<T> {
+    public toDynamicValue(func: (context: interfaces.Context) => Promise<T>): interfaces.BindingInWhenOnSyntax<T> {
         this._binding.type = BindingTypeEnum.DynamicValue;
         this._binding.cache = null;
         this._binding.dynamicValue = func;
@@ -64,7 +64,7 @@ class BindingToSyntax<T> implements interfaces.BindingToSyntax<T> {
 
     public toAutoFactory<T2>(serviceIdentifier: interfaces.ServiceIdentifier<T2>): interfaces.BindingWhenOnSyntax<T> {
         this._binding.type = BindingTypeEnum.Factory;
-        this._binding.factory = (context) => {
+        this._binding.factory = async (context) => {
             const autofactory = () => context.container.get<T2>(serviceIdentifier);
             return autofactory;
         };

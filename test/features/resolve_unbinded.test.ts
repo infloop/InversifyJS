@@ -24,10 +24,10 @@ describe("Container.prototype.resolve", async () => {
         const container = new Container();
         container.bind(Katana).toSelf();
 
-        const tryGet = () => container.get(Ninja);
+        const tryGet = async () => container.get(Ninja);
         expect(tryGet).to.throw("No matching bindings found for serviceIdentifier: Ninja");
 
-        const ninja = container.resolve(Ninja);
+        const ninja = await container.resolve(Ninja);
         expect(ninja.fight()).to.eql("cut!");
 
     });

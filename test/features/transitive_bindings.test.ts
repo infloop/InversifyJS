@@ -32,9 +32,9 @@ describe("Transitive bindings", async () => {
         container.bind(DatabaseTransactionLog).toService(MySqlDatabaseTransactionLog);
         container.bind(TransactionLog).toService(DatabaseTransactionLog);
 
-        const mySqlDatabaseTransactionLog = container.get(MySqlDatabaseTransactionLog);
-        const databaseTransactionLog = container.get(DatabaseTransactionLog);
-        const transactionLog = container.get(TransactionLog);
+        const mySqlDatabaseTransactionLog = await container.get(MySqlDatabaseTransactionLog);
+        const databaseTransactionLog = await container.get(DatabaseTransactionLog);
+        const transactionLog = await container.get(TransactionLog);
 
         expect(mySqlDatabaseTransactionLog.name).to.eq("MySqlDatabaseTransactionLog");
         expect(databaseTransactionLog.name).to.eq("MySqlDatabaseTransactionLog");
@@ -73,9 +73,9 @@ describe("Transitive bindings", async () => {
         container.bind(MySqlDatabaseTransactionLog).toSelf().inSingletonScope();
         mbts(MySqlDatabaseTransactionLog)(DatabaseTransactionLog, TransactionLog);
 
-        const mySqlDatabaseTransactionLog = container.get(MySqlDatabaseTransactionLog);
-        const databaseTransactionLog = container.get(DatabaseTransactionLog);
-        const transactionLog = container.get(TransactionLog);
+        const mySqlDatabaseTransactionLog = await container.get(MySqlDatabaseTransactionLog);
+        const databaseTransactionLog = await container.get(DatabaseTransactionLog);
+        const transactionLog = await container.get(TransactionLog);
 
         expect(mySqlDatabaseTransactionLog.name).to.eq("MySqlDatabaseTransactionLog");
         expect(databaseTransactionLog.name).to.eq("MySqlDatabaseTransactionLog");

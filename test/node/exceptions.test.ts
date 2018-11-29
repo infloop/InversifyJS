@@ -50,7 +50,7 @@ describe("Node", async () => {
         container.bind<D>("D").to(D);
 
         function willThrow() {
-            const a = container.get<A>("A");
+            const a = await container.get<A>("A");
             return a;
         }
 

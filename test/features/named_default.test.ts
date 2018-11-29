@@ -74,8 +74,8 @@ describe("Named default", async () => {
         container.bind<Weapon>(TYPES.Weapon).to(Shuriken).whenTargetNamed(TAG.throwable);
         container.bind<Weapon>(TYPES.Weapon).to(Katana).whenTargetIsDefault();
 
-        const ninja = container.getNamed<Warrior>(TYPES.Warrior, TAG.chinese);
-        const samurai = container.getNamed<Warrior>(TYPES.Warrior, TAG.japanese);
+        const ninja = await container.getNamed<Warrior>(TYPES.Warrior, TAG.chinese);
+        const samurai = await container.getNamed<Warrior>(TYPES.Warrior, TAG.japanese);
 
         expect(ninja.name).to.eql("Ninja");
         expect(ninja.weapon.name).to.eql("Shuriken");
@@ -118,8 +118,8 @@ describe("Named default", async () => {
         container.bind<Weapon>(TYPES.Weapon).to(Shuriken).whenTargetNamed(TAG.throwable);
         container.bind<Weapon>(TYPES.Weapon).to(Katana).inSingletonScope().whenTargetIsDefault();
 
-        const defaultWeapon = container.get<Weapon>(TYPES.Weapon);
-        const throwableWeapon = container.getNamed<Weapon>(TYPES.Weapon, TAG.throwable);
+        const defaultWeapon = await container.get<Weapon>(TYPES.Weapon);
+        const throwableWeapon = await container.getNamed<Weapon>(TYPES.Weapon, TAG.throwable);
 
         expect(defaultWeapon.name).eql("Katana");
         expect(throwableWeapon.name).eql("Shuriken");

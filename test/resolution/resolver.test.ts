@@ -325,15 +325,15 @@ describe("Resolve", async () => {
     container.bind<UseDate>("UseDate").to(UseDate);
     container.bind<Date>("Date").toDynamicValue((context: interfaces.Context) => new Date());
 
-    const subject1 = container.get<UseDate>("UseDate");
-    const subject2 = container.get<UseDate>("UseDate");
+    const subject1 = await container.get<UseDate>("UseDate");
+    const subject2 = await container.get<UseDate>("UseDate");
     expect(subject1.doSomething() === subject2.doSomething()).eql(false);
 
     container.unbind("Date");
     container.bind<Date>("Date").toConstantValue(new Date());
 
-    const subject3 = container.get<UseDate>("UseDate");
-    const subject4 = container.get<UseDate>("UseDate");
+    const subject3 = await container.get<UseDate>("UseDate");
+    const subject4 = await container.get<UseDate>("UseDate");
     expect(subject3.doSomething() === subject4.doSomething()).eql(true);
 
   });

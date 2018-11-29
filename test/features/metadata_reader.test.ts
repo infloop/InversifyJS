@@ -139,7 +139,7 @@ describe("Custom Metadata Reader", async () => {
         container.bind<Katana>("Katana").to(Katana);
         container.bind<Shuriken>("Shuriken").to(Shuriken);
 
-        const ninja = container.get<Ninja>("Ninja");
+        const ninja = await container.get<Ninja>("Ninja");
 
         expect(ninja.fight()).eql("cut!");
         expect(ninja.sneak()).eql("hit!");
@@ -203,7 +203,7 @@ describe("Custom Metadata Reader", async () => {
         container.bind<Katana>("Katana").to(Katana);
         container.bind<Shuriken>("Shuriken").to(Shuriken);
 
-        const ninja = container.get<Ninja>("Ninja");
+        const ninja = await container.get<Ninja>("Ninja");
 
         expect(ninja.fight()).eql("cut!");
         expect(ninja.sneak()).eql("hit!");
@@ -281,7 +281,7 @@ describe("Custom Metadata Reader", async () => {
         container.bind<Katana>("Katana").to(Katana);
         container.bind<Shuriken>("Shuriken").to(Shuriken);
 
-        const ninja = container.get<Ninja>("Ninja");
+        const ninja = await container.get<Ninja>("Ninja");
 
         expect(ninja.fight()).eql("cut!");
         expect(ninja.sneak()).eql("hit!");

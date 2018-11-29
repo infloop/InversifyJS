@@ -22,11 +22,11 @@ describe("Issue 633", async () => {
         container.bind<Logger>(TYPE.Logger).toDynamicValue((context) => {
             const namedMetadata = context.currentRequest.target.getNamedTag();
             const named = namedMetadata ? namedMetadata.value : "default";
-            return new Logger(named);
+            return Promise.resolve(new Logger(named));
         });
 
-        const logger1 = container.getNamed<Logger>(TYPE.Logger, "Name1");
-        const logger2 = container.getNamed<Logger>(TYPE.Logger, "Name2");
+        const logger1 = await container.getNamed<Logger>(TYPE.Logger, "Name1");
+        const logger2 = await container.getNamed<Logger>(TYPE.Logger, "Name2");
 
         expect(logger1.named).to.eq("Name1");
         expect(logger2.named).to.eq("Name2");

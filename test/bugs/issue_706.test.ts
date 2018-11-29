@@ -23,8 +23,8 @@ describe("Issue 706", async () => {
 
         container.bind<SomeClass>(TYPE.SomeClass).to(SomeClass);
 
-        const instanceOne = container.get<SomeClass>(TYPE.SomeClass);
-        const instanceTwo = container.get<SomeClass>(TYPE.SomeClass);
+        const instanceOne = await container.get<SomeClass>(TYPE.SomeClass);
+        const instanceTwo = await container.get<SomeClass>(TYPE.SomeClass);
 
         expect(instanceOne.time).to.eq(instanceTwo.time);
 

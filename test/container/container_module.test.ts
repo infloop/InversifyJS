@@ -18,12 +18,12 @@ describe("ContainerModule", async () => {
       container.bind<string>("A").toConstantValue("1");
       expect(container.get<string>("A")).to.eql("1");
 
-      const warriors = new ContainerModule((bind: interfaces.Bind, unbind: interfaces.Unbind) => {
-        expect(container.get<string>("A")).to.eql("1");
+      const warriors = new ContainerModule(async (bind: interfaces.Bind, unbind: interfaces.Unbind) => {
+        expect((await container.get<string>("A"))).to.eql("1");
         unbind("A");
-        expect(() => { container.get<string>("A"); }).to.throw();
+        expect(async () => { container.get<string>("A"); }).to.throw();
         bind<string>("A").toConstantValue("2");
-        expect(container.get<string>("A")).to.eql("2");
+        expect((await container.get<string>("A"))).to.eql("2");
         bind<string>("B").toConstantValue("3");
         expect(container.get<string>("B")).to.eql("3");
       });
@@ -82,12 +82,12 @@ describe("ContainerModule", async () => {
     );
 
     container.load(module1);
-    const values1 = container.getAll(TYPES.someType);
+    const values1 = await container.getAll(TYPES.someType);
     expect(values1[0]).to.eq(1);
     expect(values1[1]).to.eq(2);
 
     container.load(module2);
-    const values2 = container.getAll(TYPES.someType);
+    const values2 = await container.getAll(TYPES.someType);
     expect(values2[0]).to.eq(3);
     expect(values2[1]).to.eq(undefined);
 
@@ -113,7 +113,7 @@ describe("ContainerModule", async () => {
 
     const AIsBound = container.isBound(A);
     expect(AIsBound).to.eq(true);
-    const a = container.get(A);
+    const a = await container.get(A);
     expect(a).to.eq(1);
 
   });

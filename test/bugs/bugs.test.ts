@@ -68,7 +68,7 @@ describe("Bugs", async () => {
 
         const container = new Container();
         container.bind<SamuraiMaster>(SamuraiMaster).to(SamuraiMaster);
-        const master: any = container.get<SamuraiMaster>(SamuraiMaster);
+        const master: any = await container.get<SamuraiMaster>(SamuraiMaster);
         expect(master.rank).eql("master");
 
     });
@@ -102,7 +102,7 @@ describe("Bugs", async () => {
             .toConstantValue("master")
             .whenTargetNamed("master");
 
-        const master: any = container.get<SamuraiMaster>(SamuraiMaster);
+        const master: any = await container.get<SamuraiMaster>(SamuraiMaster);
         expect(master.rank).eql("master");
 
     });
@@ -155,7 +155,7 @@ describe("Bugs", async () => {
             .toConstantValue("master")
             .whenTargetNamed("master");
 
-        const master: any = container.get<SamuraiMaster>(SamuraiMaster);
+        const master: any = await container.get<SamuraiMaster>(SamuraiMaster);
         expect(master.rank).eql("master");
         expect(master.weapon.name).eql("Katana");
 
@@ -199,7 +199,7 @@ describe("Bugs", async () => {
 
         const container = new Container();
         container.bind<interfaces.Newable<Category>>("Newable<Category>").toConstructor(Category);
-        const expected = container.get<interfaces.Newable<Category>>("Newable<Category>");
+        const expected = await container.get<interfaces.Newable<Category>>("Newable<Category>");
         expect(expected).eql(Category);
 
     });
@@ -223,18 +223,18 @@ describe("Bugs", async () => {
         const container = new Container();
 
         container.bind<number>("transient_random").toDynamicValue((context: interfaces.Context) =>
-            Math.random()).inTransientScope();
+            Promise.resolve(Math.random())).inTransientScope();
 
         container.bind<number>("singleton_random").toDynamicValue((context: interfaces.Context) =>
-            Math.random()).inSingletonScope();
+            Promise.resolve(Math.random())).inSingletonScope();
 
-        const a = container.get<number>("transient_random");
-        const b = container.get<number>("transient_random");
+        const a = await container.get<number>("transient_random");
+        const b = await container.get<number>("transient_random");
 
         expect(a).not.to.eql(b);
 
-        const c = container.get<number>("singleton_random");
-        const d = container.get<number>("singleton_random");
+        const c = await container.get<number>("singleton_random");
+        const d = await container.get<number>("singleton_random");
 
         expect(c).to.eql(d);
 
@@ -279,7 +279,7 @@ describe("Bugs", async () => {
         container.bind<Animal>(Animal).to(Snake);
         container.bind<Jungle>(Jungle).to(Jungle);
 
-        const jungle = container.get(Jungle);
+        const jungle = await container.get(Jungle);
         expect(jungle.animal.makeSound("zzz")).to.eql("ssssszzz");
         expect(jungle.animal.move(5)).to.eql("Slithering... Snake moved 5m");
 
@@ -429,8 +429,7 @@ describe("Bugs", async () => {
         }
 
         container.applyMiddleware(logger);
-        container.get<Test>(TYPES.Test);
-
+        await container.get<Test>(TYPES.Test);
     });
 
     it("Helper getFunctionName should not throw when using an anonymous function", async () => {
@@ -476,22 +475,22 @@ describe("Bugs", async () => {
         container.bind(controllerId).to(AppController).whenTargetNamed(tagA);
         container.bind(controllerId).to(AppController2).whenTargetNamed(tagB);
 
-        function wrongNamedBinding() { container.getAllNamed<Controller>(controllerId, "Wrong"); }
+        async function wrongNamedBinding() { await container.getAllNamed<Controller>(controllerId, "Wrong"); }
         expect(wrongNamedBinding).to.throw();
 
-        const appControllerNamedRight = container.getAllNamed<Controller>(controllerId, tagA);
+        const appControllerNamedRight = await container.getAllNamed<Controller>(controllerId, tagA);
         expect(appControllerNamedRight.length).to.eql(1, "getAllNamed");
         expect(appControllerNamedRight[0].name).to.eql("AppController");
 
-        function wrongTaggedBinding() { container.getAllTagged<Controller>(controllerId, "Wrong", "Wrong"); }
+        async function wrongTaggedBinding() { await container.getAllTagged<Controller>(controllerId, "Wrong", "Wrong"); }
         expect(wrongTaggedBinding).to.throw();
 
-        const appControllerTaggedRight = container.getAllTagged<Controller>(controllerId, METADATA_KEY.NAMED_TAG, tagB);
+        const appControllerTaggedRight = await container.getAllTagged<Controller>(controllerId, METADATA_KEY.NAMED_TAG, tagB);
         expect(appControllerTaggedRight.length).to.eql(1, "getAllTagged");
         expect(appControllerTaggedRight[0].name).to.eql("AppController2");
 
-        const getAppController = () => {
-            const matches = container.getAll<Controller>(controllerId);
+        const getAppController = async () => {
+            const matches = await container.getAll<Controller>(controllerId);
             expect(matches.length).to.eql(2);
             expect(matches[0].name).to.eql("AppController");
             expect(matches[1].name).to.eql("AppController2");
@@ -568,7 +567,7 @@ describe("Bugs", async () => {
         container.bind<Bar>(BAR).toConstantValue({ name: "bar1" });
         container.bind<Bar>(BAR).toConstantValue({ name: "bar2" });
         container.bind<Foo>(FOO).to(Foo);
-        const foo = container.get<Foo>(FOO);
+        const foo = await container.get<Foo>(FOO);
         expect(foo.bar.length).to.eql(2);
         expect(foo.bar[0].name).to.eql("bar1");
         expect(foo.bar[1].name).to.eql("bar2");
@@ -616,9 +615,9 @@ describe("Bugs", async () => {
         container.bind<BaseSoldier>("BaseSoldier").to(Knight).whenTargetNamed("knight");
         container.bind<BaseSoldier>("BaseSoldier").to(Archer).whenTargetNamed("archer");
 
-        const soldier = container.getNamed<BaseSoldier>("BaseSoldier", "default");
-        const knight = container.getNamed<BaseSoldier>("BaseSoldier", "knight");
-        const archer = container.getNamed<BaseSoldier>("BaseSoldier", "archer");
+        const soldier = await container.getNamed<BaseSoldier>("BaseSoldier", "default");
+        const knight = await container.getNamed<BaseSoldier>("BaseSoldier", "knight");
+        const archer = await container.getNamed<BaseSoldier>("BaseSoldier", "archer");
 
         expect(soldier.weapon instanceof DefaultWeapon).to.eql(true);
         expect(knight.weapon instanceof Sword).to.eql(true);
@@ -653,7 +652,7 @@ describe("Bugs", async () => {
         container.bind<Weapon>("Weapon").to(Katana).whenTargetNamed("sword");
         container.bind<Ninja>(Ninja).toSelf();
 
-        const ninja = container.get<Ninja>(Ninja);
+        const ninja = await container.get<Ninja>(Ninja);
         expect(ninja.fight()).eql("Used Katana!");
 
     });
@@ -733,7 +732,7 @@ describe("Bugs", async () => {
         container.bind<Weapon>(TYPES.Weapon).to(Katana).whenTargetTagged(TAGS.Priority, TAGS.Primary);
         container.bind<Weapon>(TYPES.Weapon).to(Shuriken).whenTargetTagged(TAGS.Priority, TAGS.Secondary);
 
-        const samurai = container.get<Samurai>(TYPES.Warrior);
+        const samurai = await container.get<Samurai>(TYPES.Warrior);
         expect(samurai.name).to.eql("Samurai");
         expect(samurai.secondaryWeapon).not.to.eql(undefined);
         expect(samurai.secondaryWeapon.name).to.eql("Shuriken");
@@ -807,7 +806,7 @@ describe("Bugs", async () => {
         container.bind<TypedRepo>(TypedRepo).toSelf();
         container.bind<TypedBL>("TypedBL").to(TypedBL);
 
-        const typedBL = container.get<TypedBL>("TypedBL");
+        const typedBL = await container.get<TypedBL>("TypedBL");
         expect(typedBL.repository.model.instance.name).to.eq(new Type().name);
 
     });
