@@ -77,7 +77,7 @@ describe("Issue 543", async () => {
             return container.get(TYPE.Root);
         }
 
-        expect(async () => await throws()).to.throw(
+        expect(async () => throws()).to.throw(
             `${ERROR_MSGS.CIRCULAR_DEPENDENCY} Symbol(Root) --> Symbol(Circular) --> Symbol(Child) --> Symbol(Child2) --> Symbol(Circular)`
         );
 
