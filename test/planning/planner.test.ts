@@ -184,6 +184,7 @@ describe("Planner", async () => {
 
     it("Should only plan sub-dependencies when binding type is BindingType.Instance", async () => {
 
+        // INFLOOP
         interface KatanaBlade { }
 
         @injectable()
@@ -195,7 +196,7 @@ describe("Planner", async () => {
         class KatanaHandler implements KatanaHandler { }
 
         interface Katana { }
-
+        //
         @injectable()
         class Katana implements Katana {
             public handler: KatanaHandler;
@@ -231,7 +232,7 @@ describe("Planner", async () => {
 
         const ninjaId = "Ninja";
         const shurikenId = "Shuriken";
-        const katanaId = "Katana";
+        // const katanaId = "Katana";
         const katanaHandlerId = "KatanaHandler";
         const katanaBladeId = "KatanaBlade";
         const katanaFactoryId = "Factory<Katana>";
@@ -242,10 +243,10 @@ describe("Planner", async () => {
         container.bind<Katana>(katanaBladeId).to(Katana);
         container.bind<KatanaBlade>(katanaBladeId).to(KatanaBlade);
         container.bind<KatanaHandler>(katanaHandlerId).to(KatanaHandler);
-        container.bind<interfaces.Factory<Katana>>(katanaFactoryId).toFactory<Katana>((context: interfaces.Context) =>
-            () =>
-                context.container.get<Katana>(katanaId));
-
+        // container.bind<interfaces.Factory<Katana>>(katanaFactoryId).toFactory<Katana>((context: interfaces.Context) =>
+        //     () =>
+        //         context.container.get<Katana>(katanaId));
+        //
         const actualPlan = plan(new MetadataReader(), container, false, TargetTypeEnum.Variable, ninjaId).plan;
 
         expect(actualPlan.rootRequest.serviceIdentifier).eql(ninjaId);

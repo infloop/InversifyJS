@@ -60,9 +60,9 @@ namespace interfaces {
         cache: T | null;
     }
 
-    export type Factory<T> = (...args: any[]) => (((...args: any[]) => T) | T);
+    export type Factory<T> = (...args: any[]) => (((...args: any[]) => Promise<T>) | Promise<T>);
 
-    export type FactoryCreator<T> = (context: Context) => Promise<Factory<T>>;
+    export type FactoryCreator<T> = (context: Context) => Factory<T>;
 
     export type Provider<T> = (...args: any[]) => (((...args: any[]) => Promise<T>) | Promise<T>);
 

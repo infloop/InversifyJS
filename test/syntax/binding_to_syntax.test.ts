@@ -51,7 +51,7 @@ describe("BindingToSyntax", async () => {
         expect(binding.type).eql(BindingTypeEnum.ConstantValue);
         expect(binding.cache instanceof Ninja).eql(true);
 
-        bindingToSyntax.toDynamicValue((context: interfaces.Context) => new Ninja());
+        bindingToSyntax.toDynamicValue((context: interfaces.Context) => Promise.resolve(new Ninja()));
         expect(binding.type).eql(BindingTypeEnum.DynamicValue);
         expect(typeof binding.dynamicValue).eql("function");
 
@@ -64,7 +64,7 @@ describe("BindingToSyntax", async () => {
 
         bindingToSyntax.toFactory<Ninja>((context: interfaces.Context) =>
             () =>
-                new Ninja());
+                Promise.resolve(new Ninja()));
 
         expect(binding.type).eql(BindingTypeEnum.Factory);
         expect(binding.factory).not.to.eql(null);

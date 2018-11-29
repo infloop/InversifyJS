@@ -323,7 +323,7 @@ describe("Resolve", async () => {
 
     const container = new Container();
     container.bind<UseDate>("UseDate").to(UseDate);
-    container.bind<Date>("Date").toDynamicValue((context: interfaces.Context) => new Date());
+    container.bind<Date>("Date").toDynamicValue((context: interfaces.Context) => Promise.resolve(new Date()));
 
     const subject1 = await container.get<UseDate>("UseDate");
     const subject2 = await container.get<UseDate>("UseDate");
