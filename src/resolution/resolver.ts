@@ -25,8 +25,8 @@ const invokeFactory = (
     }
 };
 
-const _resolveRequest = (requestScope: interfaces.RequestScope) =>
-    (request: interfaces.Request): any => {
+const _resolveRequest =  (requestScope: interfaces.RequestScope) =>
+    async (request: interfaces.Request): Promise<any> => {
 
     request.parentContext.setCurrentRequest(request);
 
@@ -43,10 +43,10 @@ const _resolveRequest = (requestScope: interfaces.RequestScope) =>
     if (targetIsAnArray && targetParentIsNotAnArray) {
 
         // Create an array instead of creating an instance
-        return childRequests.map((childRequest: interfaces.Request) => {
+        return Promise.all(childRequests.map(async (childRequest: interfaces.Request) => {
             const _f = _resolveRequest(requestScope);
             return _f(childRequest);
-        });
+        }));
 
     } else {
 
@@ -97,7 +97,7 @@ const _resolveRequest = (requestScope: interfaces.RequestScope) =>
                 () => (binding.provider as interfaces.Provider<any>)(request.parentContext)
             );
         } else if (binding.type === BindingTypeEnum.Instance && binding.implementationType !== null) {
-            result = resolveInstance(
+            result = await resolveInstance(
                 binding.implementationType,
                 childRequests,
                 _resolveRequest(requestScope)
@@ -133,7 +133,7 @@ const _resolveRequest = (requestScope: interfaces.RequestScope) =>
 
 };
 
-function resolve<T>(context: interfaces.Context): T {
+async function resolve<T>(context: interfaces.Context): Promise<T> {
     const _f = _resolveRequest(context.plan.rootRequest.requestScope);
     return _f(context.plan.rootRequest);
 }

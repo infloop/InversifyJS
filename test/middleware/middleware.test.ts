@@ -237,7 +237,7 @@ describe("Middleware", async () => {
         container.applyMiddleware(middleware);
         container.bind<Warrior>("Warrior"); // Invalid binding missing BindingToSyntax
 
-        container.get<any>("Warrior");
+        await container.get<any>("Warrior");
         expect(log.length).eql(1);
         expect(log[0]).eql(`${ERROR_MSGS.INVALID_BINDING_TYPE} Warrior`);
 

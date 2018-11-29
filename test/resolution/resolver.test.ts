@@ -96,7 +96,7 @@ describe("Resolve", async () => {
       container.bind<KatanaHandler>(katanaHandlerId).to(KatanaHandler);
 
       const context = plan(new MetadataReader(), container, false, TargetTypeEnum.Variable, ninjaId);
-      const ninja = resolve<Ninja>(context);
+      const ninja = await resolve<Ninja>(context);
 
       expect(ninja instanceof Ninja).eql(true);
       expect(ninja.katana instanceof Katana).eql(true);
@@ -176,10 +176,10 @@ describe("Resolve", async () => {
       const context = plan(new MetadataReader(), container, false, TargetTypeEnum.Variable, ninjaId);
 
       expect(bindingDictionary.get(katanaId)[0].cache === null).eql(true);
-      const ninja = resolve<Ninja>(context);
+      const ninja = await resolve<Ninja>(context);
       expect(ninja instanceof Ninja).eql(true);
 
-      const ninja2 = resolve<Ninja>(context);
+      const ninja2 = await resolve<Ninja>(context);
       expect(ninja2 instanceof Ninja).eql(true);
 
       expect(bindingDictionary.get(katanaId)[0].cache instanceof Katana).eql(true);
@@ -294,7 +294,7 @@ describe("Resolve", async () => {
 
       const context = plan(new MetadataReader(), container, false, TargetTypeEnum.Variable, ninjaId);
 
-      const ninja = resolve<Ninja>(context);
+      const ninja = await resolve<Ninja>(context);
 
       expect(ninja instanceof Ninja).eql(true);
       expect(ninja.katana instanceof Katana).eql(true);
@@ -405,7 +405,7 @@ describe("Resolve", async () => {
       container.bind<interfaces.Newable<Katana>>(newableKatanaId).toConstructor<Katana>(Katana);  // IMPORTANT!
 
       const context = plan(new MetadataReader(), container, false, TargetTypeEnum.Variable, ninjaId);
-      const ninja = resolve<Ninja>(context);
+      const ninja = await resolve<Ninja>(context);
 
       expect(ninja instanceof Ninja).eql(true);
       expect(ninja.katana instanceof Katana).eql(true);
@@ -490,7 +490,7 @@ describe("Resolve", async () => {
 
       const context = plan(new MetadataReader(), container, false, TargetTypeEnum.Variable, ninjaId);
 
-      const ninja = resolve<Ninja>(context);
+      const ninja = await resolve<Ninja>(context);
 
       expect(ninja instanceof Ninja).eql(true);
       expect(ninja.katana instanceof Katana).eql(true);
@@ -571,7 +571,7 @@ describe("Resolve", async () => {
       container.bind<interfaces.Factory<Katana>>(katanaFactoryId).toAutoFactory<Katana>(katanaId);
 
       const context = plan(new MetadataReader(), container, false, TargetTypeEnum.Variable, ninjaId);
-      const ninja = resolve<Ninja>(context);
+      const ninja = await resolve<Ninja>(context);
 
       expect(ninja instanceof Ninja).eql(true);
       expect(ninja.katana instanceof Katana).eql(true);
@@ -581,7 +581,7 @@ describe("Resolve", async () => {
 
   });
 
-  it("Should be able to resolve BindingType.Provider bindings", (done) => {
+  it("Should be able to resolve BindingType.Provider bindings", async () => {
 
       type SwordProvider = () => Promise<Sword>;
 
@@ -662,17 +662,17 @@ describe("Resolve", async () => {
 
       const context = plan(new MetadataReader(), container, false, TargetTypeEnum.Variable, ninjaId);
 
-      const ninja = resolve<Warrior>(context);
+      const ninja = await resolve<Warrior>(context);
 
       expect(ninja instanceof Ninja).eql(true);
       expect(ninja.shuriken instanceof Shuriken).eql(true);
-      ninja.katanaProvider().then((katana) => {
-          ninja.katana = katana;
-          expect(ninja.katana instanceof Katana).eql(true);
-          expect(ninja.katana.handler instanceof KatanaHandler).eql(true);
-          expect(ninja.katana.blade instanceof KatanaBlade).eql(true);
-          done();
-      });
+
+      const katana = await ninja.katanaProvider();
+
+      ninja.katana = katana;
+      expect(ninja.katana instanceof Katana).eql(true);
+      expect(ninja.katana.handler instanceof KatanaHandler).eql(true);
+      expect(ninja.katana.blade instanceof KatanaBlade).eql(true);
 
   });
 
@@ -714,7 +714,7 @@ describe("Resolve", async () => {
 
       const context = plan(new MetadataReader(), container, false, TargetTypeEnum.Variable, ninjaId);
 
-      const ninja = resolve<Ninja>(context);
+      const ninja = await resolve<Ninja>(context);
 
       expect(ninja instanceof Ninja).eql(true);
       expect(ninja.katana instanceof Katana).eql(true);
@@ -760,7 +760,7 @@ describe("Resolve", async () => {
 
       const context = plan(new MetadataReader(), container, false, TargetTypeEnum.Variable, ninjaId);
 
-      const ninja = resolve<Ninja>(context);
+      const ninja = await resolve<Ninja>(context);
 
       expect(ninja instanceof Ninja).eql(true);
       expect(ninja.katana instanceof Katana).eql(true);
@@ -810,7 +810,7 @@ describe("Resolve", async () => {
 
       const context = plan(new MetadataReader(), container, false, TargetTypeEnum.Variable, ninjaId);
 
-      const ninja = resolve<Ninja>(context);
+      const ninja = await resolve<Ninja>(context);
 
       expect(ninja instanceof Ninja).eql(true);
       expect(ninja.katana instanceof Katana).eql(true);
@@ -860,7 +860,7 @@ describe("Resolve", async () => {
 
       const context = plan(new MetadataReader(), container, false, TargetTypeEnum.Variable, ninjaId);
 
-      const ninja = resolve<Ninja>(context);
+      const ninja = await resolve<Ninja>(context);
 
       expect(ninja instanceof Ninja).eql(true);
       expect(ninja.katana instanceof Katana).eql(true);
@@ -873,7 +873,7 @@ describe("Resolve", async () => {
 
       const context2 = plan(new MetadataReader(), container2, false, TargetTypeEnum.Variable, ninjaId);
 
-      const ninja2 = resolve<Ninja>(context2);
+      const ninja2 = await resolve<Ninja>(context2);
 
       expect(ninja2 instanceof Ninja).eql(true);
       expect(ninja2.katana instanceof Katana).eql(true);
@@ -933,7 +933,7 @@ describe("Resolve", async () => {
 
         const context = plan(new MetadataReader(), container, false, TargetTypeEnum.Variable, ninjaId);
 
-        const ninja = resolve<Ninja>(context);
+        const ninja = await resolve<Ninja>(context);
 
         expect(ninja.katana.use()).eql("Used Katana!");
         expect(Array.isArray(timeTracker)).eql(true);
@@ -1005,7 +1005,7 @@ describe("Resolve", async () => {
 
       const context = plan(new MetadataReader(), container, false, TargetTypeEnum.Variable, ninjaId);
 
-      const ninja = resolve<Ninja>(context);
+      const ninja = await resolve<Ninja>(context);
 
       expect(ninja instanceof Ninja).eql(true);
       expect(typeof ninja.katanaFactory === "function").eql(true);
@@ -1057,7 +1057,7 @@ describe("Resolve", async () => {
 
         const context = plan(new MetadataReader(), container, false, TargetTypeEnum.Variable, ninjaId);
 
-        const ninja = resolve<Ninja>(context);
+        const ninja = await resolve<Ninja>(context);
 
         expect(ninja.katana.use()).eql("Used Katana!");
 
@@ -1124,7 +1124,7 @@ describe("Resolve", async () => {
 
         const context = plan(new MetadataReader(), container, false, TargetTypeEnum.Variable, ninjaId);
 
-        const ninja = resolve<Ninja>(context);
+        const ninja = await resolve<Ninja>(context);
 
         expect(ninja.katana.use()).eql("Used Weapon!");
 
@@ -1163,8 +1163,8 @@ describe("Resolve", async () => {
         container.bind<Ninja>(ninjaId).to(Ninja);
         container.bind<Samurai>(samuraiId).to(Samurai);
         container.bind<Katana>(katanaId).to(Katana).inSingletonScope();
-        container.get(ninjaId);
-        container.get(samuraiId);
+        await container.get(ninjaId);
+        await container.get(samuraiId);
         expect(timesCalled).to.be.equal(1);
 
   });

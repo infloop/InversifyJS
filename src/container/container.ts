@@ -238,11 +238,11 @@ class Container implements interfaces.Container {
     // The runtime identifier must be associated with only one binding
     // use getAll when the runtime identifier is associated with multiple bindings
     public async get<T>(serviceIdentifier: interfaces.ServiceIdentifier<T>): Promise<T> {
-        return this._get<T>(false, false, TargetTypeEnum.Variable, serviceIdentifier) as T;
+        return this._get<T>(false, false, TargetTypeEnum.Variable, serviceIdentifier) as  Promise<T>;
     }
 
     public async getTagged<T>(serviceIdentifier: interfaces.ServiceIdentifier<T>, key: string | number | symbol, value: any): Promise<T> {
-        return this._get<T>(false, false, TargetTypeEnum.Variable, serviceIdentifier, key, value) as T;
+        return this._get<T>(false, false, TargetTypeEnum.Variable, serviceIdentifier, key, value) as  Promise<T>;
     }
 
     public async getNamed<T>(serviceIdentifier: interfaces.ServiceIdentifier<T>, named: string | number | symbol): Promise<T> {
@@ -252,7 +252,7 @@ class Container implements interfaces.Container {
     // Resolves a dependency by its runtime identifier
     // The runtime identifier can be associated with one or multiple bindings
     public async getAll<T>(serviceIdentifier: interfaces.ServiceIdentifier<T>): Promise<T[]> {
-        return this._get<T>(true, true, TargetTypeEnum.Variable, serviceIdentifier) as T[];
+        return this._get<T>(true, true, TargetTypeEnum.Variable, serviceIdentifier) as Promise<T[]>;
     }
 
     public async getAllTagged<T>(
@@ -260,7 +260,7 @@ class Container implements interfaces.Container {
         key: string | number | symbol,
         value: any,
     ): Promise<T[]> {
-        return this._get<T>(false, true, TargetTypeEnum.Variable, serviceIdentifier, key, value) as T[];
+        return this._get<T>(false, true, TargetTypeEnum.Variable, serviceIdentifier, key, value) as Promise<T[]>;
     }
 
     public async getAllNamed<T>(serviceIdentifier: interfaces.ServiceIdentifier<T>, named: string | number | symbol): Promise<T[]> {
@@ -319,14 +319,14 @@ class Container implements interfaces.Container {
     // Prepares arguments required for resolution and
     // delegates resolution to _middleware if available
     // otherwise it delegates resolution to _planAndResolve
-    private _get<T>(
+    private async _get<T>(
         avoidConstraints: boolean,
         isMultiInject: boolean,
         targetType: interfaces.TargetType,
         serviceIdentifier: interfaces.ServiceIdentifier<any>,
         key?: string | number | symbol,
         value?: any
-    ): (T | T[]) {
+    ): Promise<T | T[]> {
 
         let result: (T | T[]) | null = null;
 
@@ -346,7 +346,7 @@ class Container implements interfaces.Container {
                 throw new Error(ERROR_MSGS.INVALID_MIDDLEWARE_RETURN);
             }
         } else {
-            result = this._planAndResolve<T>()(defaultArgs);
+            result = await this._planAndResolve<T>()(defaultArgs);
         }
 
         return result;
@@ -355,7 +355,7 @@ class Container implements interfaces.Container {
     // Planner creates a plan and Resolver resolves a plan
     // one of the jobs of the Container is to links the Planner
     // with the Resolver and that is what this function is about
-    private _planAndResolve<T>(): (args: interfaces.NextArgs) => (T | T[]) {
+    private _planAndResolve<T>(): (args: interfaces.NextArgs) => (Promise<T | T[]>) {
         return (args: interfaces.NextArgs) => {
 
             // create a plan

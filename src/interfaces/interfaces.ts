@@ -117,7 +117,7 @@ namespace interfaces {
 
     export type ResolveRequestHandler = (
         request: interfaces.Request
-    ) => any;
+    ) => Promise<any>;
 
     export type RequestScope = Map<any, any> | null;
 

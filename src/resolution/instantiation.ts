@@ -44,11 +44,11 @@ function _postConstruct(constr: interfaces.Newable<any>, result: any): void {
     }
 }
 
-function resolveInstance(
+async function resolveInstance(
     constr: interfaces.Newable<any>,
     childRequests: interfaces.Request[],
     resolveRequest: interfaces.ResolveRequestHandler
-): any {
+): Promise<any> {
 
     let result: any = null;
 
@@ -57,7 +57,7 @@ function resolveInstance(
         const constructorInjectionsRequests = childRequests.filter((childRequest: interfaces.Request) =>
             (childRequest.target !== null && childRequest.target.type === TargetTypeEnum.ConstructorArgument));
 
-        const constructorInjections = constructorInjectionsRequests.map(resolveRequest);
+        const constructorInjections = await Promise.all(constructorInjectionsRequests.map(resolveRequest));
 
         result = _createInstance(constr, constructorInjections);
         result = _injectProperties(result, childRequests, resolveRequest);
