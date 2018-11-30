@@ -33,11 +33,11 @@ function _createInstance(Func: interfaces.Newable<any>, injections: Object[]): a
     return new Func(...injections);
 }
 
-function _postConstruct(constr: interfaces.Newable<any>, result: any): void {
+async function _postConstruct(constr: interfaces.Newable<any>, result: any): Promise<void> {
     if (Reflect.hasMetadata(METADATA_KEY.POST_CONSTRUCT, constr)) {
         const data: Metadata = Reflect.getMetadata(METADATA_KEY.POST_CONSTRUCT, constr);
         try {
-            result[data.value]();
+            await result[data.value]();
         } catch (e) {
             throw new Error(POST_CONSTRUCT_ERROR(constr.name, e.message));
         }
@@ -65,7 +65,7 @@ async function resolveInstance(
     } else {
         result = new constr();
     }
-    _postConstruct(constr, result);
+    await _postConstruct(constr, result);
 
     return result;
 }

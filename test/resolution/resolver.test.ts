@@ -1069,7 +1069,7 @@ describe("Resolve", async () => {
         class Katana {
 
             @postConstruct()
-            public postConstruct() {
+            public async postConstruct() {
                 throw new Error("Original Message");
             }
         }
