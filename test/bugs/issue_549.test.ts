@@ -47,7 +47,7 @@ describe("Issue 549", async () => {
         }
 
         try {
-            const result = willThrow();
+            const result = await willThrow();
             throw new Error(
                 `This line should never be executed. Expected 'willThrow' to throw! ${JSON.stringify(result)}`
             );
